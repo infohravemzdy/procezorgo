@@ -1,8 +1,8 @@
 package registry_providers
 
 import (
-	legalios "github.com/mzdyhrave/payrollgo-legalios/pkg/service"
-	"github.com/mzdyhrave/payrollgo-procezor/internal/types"
+	legalios "github.com/mzdyhrave/legaliosgo"
+	"github.com/mzdyhrave/procezorgo/internal/types"
 )
 
 type IBuilderResult interface {
@@ -32,7 +32,7 @@ func (p ConceptSpecProvider) Code() types.ConceptCode {
 	return p.code
 }
 
-func EvalEmptyResultList(target types.ITermTarget, period legalios.IPeriod, results IBuilderResultList) IBuilderResultList {
+func EvalEmptyResultList(target types.ITermTarget, period legalios.IPeriod, ruleset legalios.IBundleProps, results IBuilderResultList) IBuilderResultList {
 	return IBuilderResultList{}
 }
 

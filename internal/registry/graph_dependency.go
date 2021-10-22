@@ -1,18 +1,19 @@
 package registry
 
 import (
-	providers "github.com/mzdyhrave/payrollgo-procezor/internal/registry_providers"
-	"github.com/mzdyhrave/payrollgo-procezor/internal/types"
+	providers "github.com/mzdyhrave/procezorgo/internal/registry_providers"
+	"github.com/mzdyhrave/procezorgo/internal/types"
 	"sort"
 )
 
 func InitGraphModel(articlesModel []providers.IArticleSpec, conceptsModel []providers.IConceptSpec) ([]types.ArticleCode, pathCodeMap, bool) {
 	vertModel := createVertModel(articlesModel)
 	edgeModel := createEdgeModel(articlesModel, conceptsModel)
+	depsModel := createPendModel(articlesModel, conceptsModel)
 
 	order := createTopoModel(vertModel, edgeModel)
 
-	paths := createPathModel(articlesModel, vertModel, edgeModel, order)
+	paths := createPathModel(articlesModel, vertModel, depsModel, order)
 
 	return order, paths, true
 }
@@ -37,6 +38,15 @@ func createEdgeModel(articlesModel []providers.IArticleSpec, conceptsModel []pro
 	return resultSlice
 }
 
+func createPendModel(articlesModel []providers.IArticleSpec, conceptsModel []providers.IConceptSpec) []articleEdge {
+	result := articleEdgeSet{}
+	for _, s := range articlesModel {
+		result = mergePends(conceptsModel, result, s)
+	}
+	resultSlice := result.Sort()
+	return resultSlice
+}
+
 func mergeEdges(conceptsModel []providers.IConceptSpec, init articleEdgeSet, article providers.IArticleSpec) articleEdgeSet {
 	result := toEdgeHashSet(init)
 
@@ -45,6 +55,17 @@ func mergeEdges(conceptsModel []providers.IConceptSpec, init articleEdgeSet, art
 	for _, s := range article.Sums() {
 		result.Add(newArticleEdge(article.Code(), s))
 	}
+	for _, p := range concept.Path() {
+		result.Add(newArticleEdge(p, article.Code()))
+	}
+	return result
+}
+
+func mergePends(conceptsModel []providers.IConceptSpec, init articleEdgeSet, article providers.IArticleSpec) articleEdgeSet {
+	result := toEdgeHashSet(init)
+
+	concept, _ := firstOrDefaultConceptSpec(conceptsModel, findConceptSpecCode(article.Role().Value()))
+
 	for _, p := range concept.Path() {
 		result.Add(newArticleEdge(p, article.Code()))
 	}

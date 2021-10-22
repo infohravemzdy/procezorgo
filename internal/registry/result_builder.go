@@ -1,10 +1,10 @@
 package registry
 
 import (
-	legalios "github.com/mzdyhrave/payrollgo-legalios/pkg/service"
-	factories "github.com/mzdyhrave/payrollgo-procezor/internal/registry_factories"
-	providers "github.com/mzdyhrave/payrollgo-procezor/internal/registry_providers"
-	"github.com/mzdyhrave/payrollgo-procezor/internal/types"
+	legalios "github.com/mzdyhrave/legaliosgo"
+	factories "github.com/mzdyhrave/procezorgo/internal/registry_factories"
+	providers "github.com/mzdyhrave/procezorgo/internal/registry_providers"
+	"github.com/mzdyhrave/procezorgo/internal/types"
 	"sort"
 )
 
@@ -12,7 +12,7 @@ type IResultBuilder interface {
 	GetVersion() types.VersionCode
 	GetPeriod() legalios.IPeriod
 	InitWithPeriod(version types.VersionCode, period legalios.IPeriod, articleFactory factories.IArticleSpecFactory, conceptFactory factories.IConceptSpecFactory) bool
-	GetResults(targets []types.ITermTarget, finDefs types.IArticleDefine) providers.IBuilderResultList
+	GetResults(ruleset legalios.IBundleProps, targets []types.ITermTarget, finDefs types.IArticleDefine) providers.IBuilderResultList
 }
 
 type resultBuilder struct {
@@ -34,10 +34,10 @@ func (f resultBuilder) GetVersion() types.VersionCode {
 	return f.version
 }
 
-func (f resultBuilder) GetResults(targets []types.ITermTarget, finDefs types.IArticleDefine) providers.IBuilderResultList {
+func (f resultBuilder) GetResults(ruleset legalios.IBundleProps, targets []types.ITermTarget, finDefs types.IArticleDefine) providers.IBuilderResultList {
 	calculTargets := f.buildCalculsList(targets, finDefs)
 
-	calculResults := f.buildResultsList(calculTargets)
+	calculResults := f.buildResultsList(ruleset, calculTargets)
 
 	return calculResults
 }
@@ -79,11 +79,11 @@ func (f resultBuilder) buildCalculsList(targets []types.ITermTarget, finDefs typ
 	return calculsList
 }
 
-func (f resultBuilder) buildResultsList(calculs []ITermCalcul) providers.IBuilderResultList {
+func (f resultBuilder) buildResultsList(ruleset legalios.IBundleProps, calculs []ITermCalcul) providers.IBuilderResultList {
 	resultsList := make(providers.IBuilderResultList, 0, len(calculs))
 
 	for _, x := range calculs {
-		resultsList = mergeResults(resultsList, x.GetResults(f.period, resultsList))
+		resultsList = mergeResults(resultsList, x.GetResults(f.period, ruleset, resultsList))
 	}
 	return resultsList
 }
@@ -161,7 +161,7 @@ func getCalculFunc(conceptsModel []providers.IConceptSpec, concept types.Concept
 	return conceptSpec.ResultDelegate()
 }
 
-func NotFoundCalculFunc(target types.ITermTarget, period legalios.IPeriod, results providers.IBuilderResultList) providers.IBuilderResultList {
+func NotFoundCalculFunc(target types.ITermTarget, period legalios.IPeriod, ruleset legalios.IBundleProps, results providers.IBuilderResultList) providers.IBuilderResultList {
 	return providers.IBuilderResultList{types.NewFailureResult(NewNoResultFuncError(period, target))}
 }
 

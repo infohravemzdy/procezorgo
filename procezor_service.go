@@ -1,10 +1,11 @@
 package procezorgo
 
 import (
-	"github.com/mzdyhrave/payrollgo-procezor/internal/registry"
-	factories "github.com/mzdyhrave/payrollgo-procezor/internal/registry_factories"
-	providers "github.com/mzdyhrave/payrollgo-procezor/internal/registry_providers"
-	"github.com/mzdyhrave/payrollgo-procezor/internal/types"
+	legalios "github.com/mzdyhrave/legaliosgo"
+	"github.com/mzdyhrave/procezorgo/internal/registry"
+	factories "github.com/mzdyhrave/procezorgo/internal/registry_factories"
+	providers "github.com/mzdyhrave/procezorgo/internal/registry_providers"
+	"github.com/mzdyhrave/procezorgo/internal/types"
 )
 
 type IProcezorService interface {
@@ -13,7 +14,7 @@ type IProcezorService interface {
 
 	InitWithPeriod(period IPeriod) bool
 	BuildFactories() bool
-	GetResults(period IPeriod, targets types.ITermTargetList) providers.IBuilderResultList
+	GetResults(period IPeriod, ruleset legalios.IBundleProps, targets types.ITermTargetList) providers.IBuilderResultList
 	GetArticleSpec(code types.ArticleCode, period IPeriod, version types.VersionCode) providers.IArticleSpec
 	GetConceptSpec(code types.ConceptCode, period IPeriod, version types.VersionCode) providers.IConceptSpec
 }
@@ -73,14 +74,14 @@ func (s *ProcezorService) BuildFactories() bool {
 	return articleFactorySuccess && conceptFactorySuccess
 }
 
-func (s ProcezorService) GetResults(period IPeriod, targets types.ITermTargetList) providers.IBuilderResultList {
+func (s ProcezorService) GetResults(period IPeriod, ruleset legalios.IBundleProps, targets types.ITermTargetList) providers.IBuilderResultList {
 	success := s.InitWithPeriod(period)
 
 	if success == false	{
 		return make(providers.IBuilderResultList, 0)
 	}
 
-	results := s.resultsBuilder.GetResults(targets, s.finDefs)
+	results := s.resultsBuilder.GetResults(ruleset, targets, s.finDefs)
 
 	return results
 }

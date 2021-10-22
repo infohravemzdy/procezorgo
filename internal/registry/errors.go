@@ -3,8 +3,8 @@ package registry
 import (
 	"errors"
 	"fmt"
-	legalios "github.com/mzdyhrave/payrollgo-legalios"
-	"github.com/mzdyhrave/payrollgo-procezor/internal/types"
+	legalios "github.com/mzdyhrave/legaliosgo"
+	"github.com/mzdyhrave/procezorgo/internal/types"
 )
 
 type termResultError struct {

@@ -1,10 +1,10 @@
 package procezorgo
 
 import (
-	"github.com/mzdyhrave/payrollgo-legalios/legalios"
-	factories "github.com/mzdyhrave/payrollgo-procezor/internal/registry_factories"
-	providers "github.com/mzdyhrave/payrollgo-procezor/internal/registry_providers"
-	"github.com/mzdyhrave/payrollgo-procezor/internal/types"
+	legalios "github.com/mzdyhrave/legaliosgo"
+	factories "github.com/mzdyhrave/procezorgo/internal/registry_factories"
+	providers "github.com/mzdyhrave/procezorgo/internal/registry_providers"
+	"github.com/mzdyhrave/procezorgo/internal/types"
 )
 
 type IPeriod = legalios.IPeriod

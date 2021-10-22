@@ -1,11 +1,11 @@
 package registry_providers
 
 import (
-	legalios "github.com/mzdyhrave/payrollgo-legalios/pkg/service"
-	"github.com/mzdyhrave/payrollgo-procezor/internal/types"
+	legalios "github.com/mzdyhrave/legaliosgo"
+	"github.com/mzdyhrave/procezorgo/internal/types"
 )
 
-type ResultFunc func (target types.ITermTarget, period legalios.IPeriod, results IBuilderResultList) IBuilderResultList
+type ResultFunc func (target types.ITermTarget, period legalios.IPeriod, ruleset legalios.IBundleProps, results IBuilderResultList) IBuilderResultList
 
 type IConceptSpec interface {
 	Code() types.ConceptCode

@@ -1,6 +1,6 @@
 package registry_providers
 
-import "github.com/mzdyhrave/payrollgo-procezor/internal/types"
+import "github.com/mzdyhrave/procezorgo/internal/types"
 
 type IArticleSpec interface {
 	Code() types.ArticleCode

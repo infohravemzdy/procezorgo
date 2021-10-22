@@ -2,7 +2,7 @@ package registry
 
 import (
 	"fmt"
-	"github.com/mzdyhrave/payrollgo-procezor/internal/types"
+	"github.com/mzdyhrave/procezorgo/internal/types"
 	"sort"
 )
 

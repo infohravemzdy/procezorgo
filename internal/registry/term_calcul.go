@@ -1,15 +1,15 @@
 package registry
 
 import (
-	legalios "github.com/mzdyhrave/payrollgo-legalios/pkg/service"
-	providers "github.com/mzdyhrave/payrollgo-procezor/internal/registry_providers"
-	"github.com/mzdyhrave/payrollgo-procezor/internal/types"
+	legalios "github.com/mzdyhrave/legaliosgo"
+	providers "github.com/mzdyhrave/procezorgo/internal/registry_providers"
+	"github.com/mzdyhrave/procezorgo/internal/types"
 )
 
 type ITermCalcul interface {
 	Target() types.ITermTarget
 	ResultDelegate() providers.ResultFunc
-	GetResults(period legalios.IPeriod, results providers.IBuilderResultList) providers.IBuilderResultList
+	GetResults(period legalios.IPeriod, ruleset legalios.IBundleProps, results providers.IBuilderResultList) providers.IBuilderResultList
 }
 
 type termCalcul struct {
@@ -25,16 +25,16 @@ func (t termCalcul) ResultDelegate() providers.ResultFunc {
 	return t.resultDelegate
 }
 
-func (t termCalcul) CallResultDelegate(target types.ITermTarget, period legalios.IPeriod, results providers.IBuilderResultList) providers.IBuilderResultList {
+func (t termCalcul) CallResultDelegate(target types.ITermTarget, period legalios.IPeriod, ruleset legalios.IBundleProps, results providers.IBuilderResultList) providers.IBuilderResultList {
 	if t.resultDelegate == nil {
 		resultErrors := types.NewFailureResult(NewNoResultFuncError(period, t.target))
 		return providers.IBuilderResultList{resultErrors}
 	}
-	return t.resultDelegate(target, period, results)
+	return t.resultDelegate(target, period, ruleset, results)
 }
 
-func (t termCalcul) GetResults(period legalios.IPeriod, results providers.IBuilderResultList) providers.IBuilderResultList {
-	resultTarget := t.CallResultDelegate(t.Target(), period, results)
+func (t termCalcul) GetResults(period legalios.IPeriod, ruleset legalios.IBundleProps, results providers.IBuilderResultList) providers.IBuilderResultList {
+	resultTarget := t.CallResultDelegate(t.Target(), period, ruleset, results)
 	return resultTarget
 }
 

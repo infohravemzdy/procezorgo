@@ -1,7 +1,10 @@
-module github.com/mzdyhrave/payrollgo-procezor
+module github.com/mzdyhrave/procezorgo
 
 go 1.16
 
 require (
-    github.com/mzdyhrave/payrollgo-legalios v0.0.7
+	github.com/kr/pretty v0.3.0
+	github.com/mzdyhrave/legaliosgo v0.0.7
 )
+
+replace github.com/mzdyhrave/legaliosgo => ../legaliosgo

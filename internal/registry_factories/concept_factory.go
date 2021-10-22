@@ -1,9 +1,9 @@
 package registry_factories
 
 import (
-	legalios "github.com/mzdyhrave/payrollgo-legalios/pkg/service"
-	providers "github.com/mzdyhrave/payrollgo-procezor/internal/registry_providers"
-	"github.com/mzdyhrave/payrollgo-procezor/internal/types"
+	legalios "github.com/mzdyhrave/legaliosgo"
+	providers "github.com/mzdyhrave/procezorgo/internal/registry_providers"
+	"github.com/mzdyhrave/procezorgo/internal/types"
 )
 
 type IConceptSpecFactory interface {

@@ -1,8 +1,8 @@
 package registry
 
 import (
-	providers "github.com/mzdyhrave/payrollgo-procezor/internal/registry_providers"
-	"github.com/mzdyhrave/payrollgo-procezor/internal/types"
+	providers "github.com/mzdyhrave/procezorgo/internal/registry_providers"
+	"github.com/mzdyhrave/procezorgo/internal/types"
 )
 
 func toDefsList(source []types.IArticleDefine) []types.IArticleDefine {

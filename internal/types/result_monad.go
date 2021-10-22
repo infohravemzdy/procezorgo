@@ -1,7 +1,7 @@
 package types
 
 import (
-	legalios "github.com/mzdyhrave/payrollgo-legalios/pkg/service"
+	legalios "github.com/mzdyhrave/legaliosgo"
 )
 
 type ITermResultError interface {
