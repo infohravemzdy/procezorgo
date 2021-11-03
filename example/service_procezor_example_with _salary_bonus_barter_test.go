@@ -29,15 +29,15 @@ func TestServiceProcezorExampleWithSalaryBonusBarter(t *testing.T) {
 	}
 	var testLegal legalios.IBundleProps = legalios.EmptyBundleProps(testPeriod)
 
-	var factoryArticleCode = procezor.GetArticleCode(ARTICLE_TIMESHT_WORKING)
-	var factoryConceptCode = procezor.GetConceptCode(CONCEPT_TIMESHT_WORKING)
+	var factoryArticleCode = procezor.GetArticleCode(ARTICLE_TIMESHT_WORKING.Id())
+	var factoryConceptCode = procezor.GetConceptCode(CONCEPT_TIMESHT_WORKING.Id())
 
 	var factoryArticle = service.GetArticleSpec(factoryArticleCode, testPeriod, testVersion)
 	if factoryArticle == nil {
 		t.Errorf("Error getting article from service expected: %d; got nil",
 			ARTICLE_TIMESHT_WORKING)
 	}
-	if factoryArticle != nil && factoryArticle.Code().Value() != CONCEPT_TIMESHT_WORKING {
+	if factoryArticle != nil && factoryArticle.Code().Value() != CONCEPT_TIMESHT_WORKING.Id() {
 		t.Errorf("Error getting article from service expected: %d; got: %d",
 			CONCEPT_TIMESHT_WORKING, factoryArticle.Code().Value())
 	}
@@ -46,13 +46,13 @@ func TestServiceProcezorExampleWithSalaryBonusBarter(t *testing.T) {
 		t.Errorf("Error getting concept from service expected: %d; got nil",
 			CONCEPT_TIMESHT_WORKING)
 	}
-	if factoryConcept != nil && factoryConcept.Code().Value() != CONCEPT_TIMESHT_WORKING {
+	if factoryConcept != nil && factoryConcept.Code().Value() != CONCEPT_TIMESHT_WORKING.Id() {
 		t.Errorf("Error getting concept from service expected: %d; got: %d",
 			CONCEPT_TIMESHT_WORKING, factoryConcept.Code().Value())
 	}
 	var initService = service.InitWithPeriod(testPeriod)
 	if initService == false {
-		t.Errorf("Error initializating service got false")
+		t.Errorf("Error initializing service got false")
 	}
 	var restTargets = GetTargetsWithSalaryBonusBarter(testPeriod)
 	var restService = service.GetResults(testPeriod, testLegal, restTargets)
@@ -65,10 +65,25 @@ func TestServiceProcezorExampleWithSalaryBonusBarter(t *testing.T) {
 			restArticles = append(restArticles, res.Value().Article().Value())
 		}
 	}
+	for index, res := range restService {
+		if res.IsSuccess() {
+			resultValue := res.Value()
+			articleSymbol := resultValue.ArticleDescr()
+			conceptSymbol := resultValue.ConceptDescr()
+			t.Logf("Index: %d, ART: %v, CON: %v", index, articleSymbol, conceptSymbol)
+		}
+		if res.IsFailure() {
+			errorsValue := res.Error()
+			resultValue := res.ResultError()
+			articleSymbol := resultValue.ArticleDescr()
+			conceptSymbol := resultValue.ConceptDescr()
+			t.Logf("Index: %d, ART: %v, CON: %v, Error: %v", index, articleSymbol, conceptSymbol, errorsValue)
+		}
+	}
 	var testArticles = []int32 { 80001, 80003, 80004, 80002, 80006, 80007, 80010, 80012, 80008, 80009, 80011, 80013 }
 	var articlesDiff = false
 	if len(restArticles) != len(testArticles) {
-		t.Errorf("Error gerring result from service result len don't match, expected %d; got: %d",
+		t.Errorf("Error getting result from service result len don't match, expected %d; got: %d",
 			len(testArticles), len(restArticles))
 	}
 	if len(restArticles) == len(testArticles) {
@@ -79,7 +94,7 @@ func TestServiceProcezorExampleWithSalaryBonusBarter(t *testing.T) {
 		}
 	}
 	if articlesDiff {
-		t.Errorf("Error gerring result from service result article code don't match,\n expected %s;\n got: %s\n",
+		t.Errorf("Error getting result from service result article code don't match,\n expected %s;\n got: %s\n",
 			pretty.Sprint(testArticles), pretty.Sprint(restArticles))
 	}
 }

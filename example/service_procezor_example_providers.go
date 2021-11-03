@@ -29,9 +29,9 @@ func NewTimeshtWorkingConSpec(role int32) procezor.IConceptSpec {
 
 func NewTimeshtWorkingConProv() procezor.IConceptSpecProvider {
 	const (
-		CONCEPT_CODE int32 = CONCEPT_TIMESHT_WORKING
+		CONCEPT_CODE = CONCEPT_TIMESHT_WORKING
 	)
-	return &TimeshtWorkingConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE)}
+	return &TimeshtWorkingConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
 }
 
 type AmountBasisConProv struct {
@@ -55,15 +55,15 @@ func AmountBasisConceptEval(target procezor.ITermTarget, period procezor.IPeriod
 func NewAmountBasisConSpec(role int32) procezor.IConceptSpec {
 	return &AmountBasisConSpec{TestConceptSpec: NewTestConceptPathFuncSpec(role,
 		procezor.ArticleCodeList{
-			procezor.GetArticleCode(ARTICLE_TIMESHT_WORKING),
+			procezor.GetArticleCode(ARTICLE_TIMESHT_WORKING.Id()),
 		}, AmountBasisConceptEval) }
 }
 
 func NewAmountBasisConProv() procezor.IConceptSpecProvider {
 	const (
-		CONCEPT_CODE int32 = CONCEPT_AMOUNT_BASIS
+		CONCEPT_CODE = CONCEPT_AMOUNT_BASIS
 	)
-	return &AmountBasisConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE)}
+	return &AmountBasisConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
 }
 
 type AmountFixedConProv struct {
@@ -90,9 +90,9 @@ func NewAmountFixedConSpec(role int32) procezor.IConceptSpec {
 
 func NewAmountFixedConProv() procezor.IConceptSpecProvider {
 	const (
-		CONCEPT_CODE int32 = CONCEPT_AMOUNT_FIXED
+		CONCEPT_CODE = CONCEPT_AMOUNT_FIXED
 	)
-	return &AmountFixedConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE)}
+	return &AmountFixedConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
 }
 
 type HealthInsbaseConProv struct {
@@ -119,9 +119,9 @@ func NewHealthInsbaseConSpec(role int32) procezor.IConceptSpec {
 
 func NewHealthInsbaseConProv() procezor.IConceptSpecProvider {
 	const (
-		CONCEPT_CODE int32 = CONCEPT_HEALTH_INSBASE
+		CONCEPT_CODE = CONCEPT_HEALTH_INSBASE
 	)
-	return &HealthInsbaseConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE)}
+	return &HealthInsbaseConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
 }
 
 type SocialInsbaseConProv struct {
@@ -148,9 +148,9 @@ func NewSocialInsbaseConSpec(role int32) procezor.IConceptSpec {
 
 func NewSocialInsbaseConProv() procezor.IConceptSpecProvider {
 	const (
-		CONCEPT_CODE int32 = CONCEPT_SOCIAL_INSBASE
+		CONCEPT_CODE = CONCEPT_SOCIAL_INSBASE
 	)
-	return &SocialInsbaseConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE)}
+	return &SocialInsbaseConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
 }
 
 type TaxingAdvbaseConProv struct {
@@ -177,9 +177,9 @@ func NewTaxingAdvbaseConSpec(role int32) procezor.IConceptSpec {
 
 func NewTaxingAdvbaseConProv() procezor.IConceptSpecProvider {
 	const (
-		CONCEPT_CODE int32 = CONCEPT_TAXING_ADVBASE
+		CONCEPT_CODE = CONCEPT_TAXING_ADVBASE
 	)
-	return &TaxingAdvbaseConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE)}
+	return &TaxingAdvbaseConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
 }
 
 type HealthInspaymConProv struct {
@@ -203,15 +203,15 @@ func HealthInspaymConceptEval(target procezor.ITermTarget, period procezor.IPeri
 func NewHealthInspaymConSpec(role int32) procezor.IConceptSpec {
 	return &HealthInspaymConSpec{TestConceptSpec: NewTestConceptPathFuncSpec(role,
 		procezor.ArticleCodeList{
-			procezor.GetArticleCode(ARTICLE_HEALTH_INSBASE),
+			procezor.GetArticleCode(ARTICLE_HEALTH_INSBASE.Id()),
 		}, HealthInspaymConceptEval) }
 }
 
 func NewHealthInspaymConProv() procezor.IConceptSpecProvider {
 	const (
-		CONCEPT_CODE int32 = CONCEPT_HEALTH_INSPAYM
+		CONCEPT_CODE = CONCEPT_HEALTH_INSPAYM
 	)
-	return &HealthInspaymConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE)}
+	return &HealthInspaymConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
 }
 
 type SocialInspaymConProv struct {
@@ -235,15 +235,15 @@ func SocialInspaymConceptEval(target procezor.ITermTarget, period procezor.IPeri
 func NewSocialInspaymConSpec(role int32) procezor.IConceptSpec {
 	return &SocialInspaymConSpec{TestConceptSpec: NewTestConceptPathFuncSpec(role,
 		procezor.ArticleCodeList{
-			procezor.GetArticleCode(ARTICLE_SOCIAL_INSBASE),
+			procezor.GetArticleCode(ARTICLE_SOCIAL_INSBASE.Id()),
 		}, SocialInspaymConceptEval) }
 }
 
 func NewSocialInspaymConProv() procezor.IConceptSpecProvider {
 	const (
-		CONCEPT_CODE int32 = CONCEPT_SOCIAL_INSPAYM
+		CONCEPT_CODE = CONCEPT_SOCIAL_INSPAYM
 	)
-	return &SocialInspaymConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE)}
+	return &SocialInspaymConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
 }
 
 type TaxingAdvpaymConProv struct {
@@ -267,15 +267,15 @@ func TaxingAdvpaymConceptEval(target procezor.ITermTarget, period procezor.IPeri
 func NewTaxingAdvpaymConSpec(role int32) procezor.IConceptSpec {
 	return &TaxingAdvpaymConSpec{TestConceptSpec: NewTestConceptPathFuncSpec(role,
 		procezor.ArticleCodeList{
-			procezor.GetArticleCode(ARTICLE_TAXING_ADVBASE),
+			procezor.GetArticleCode(ARTICLE_TAXING_ADVBASE.Id()),
 		}, TaxingAdvpaymConceptEval) }
 }
 
 func NewTaxingAdvpaymConProv() procezor.IConceptSpecProvider {
 	const (
-		CONCEPT_CODE int32 = CONCEPT_TAXING_ADVPAYM
+		CONCEPT_CODE = CONCEPT_TAXING_ADVPAYM
 	)
-	return &TaxingAdvpaymConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE)}
+	return &TaxingAdvpaymConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
 }
 
 type IncomeGrossConProv struct {
@@ -302,9 +302,9 @@ func NewIncomeGrossConSpec(role int32) procezor.IConceptSpec {
 
 func NewIncomeGrossConProv() procezor.IConceptSpecProvider {
 	const (
-		CONCEPT_CODE int32 = CONCEPT_INCOME_GROSS
+		CONCEPT_CODE = CONCEPT_INCOME_GROSS
 	)
-	return &IncomeGrossConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE)}
+	return &IncomeGrossConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
 }
 
 type IncomeNettoConProv struct {
@@ -328,18 +328,18 @@ func IncomeNettoConceptEval(target procezor.ITermTarget, period procezor.IPeriod
 func NewIncomeNettoConSpec(role int32) procezor.IConceptSpec {
 	return &IncomeNettoConSpec{TestConceptSpec: NewTestConceptPathFuncSpec(role,
 		procezor.ArticleCodeList{
-			procezor.GetArticleCode(ARTICLE_INCOME_GROSS),
-			procezor.GetArticleCode(ARTICLE_HEALTH_INSPAYM),
-			procezor.GetArticleCode(ARTICLE_SOCIAL_INSPAYM),
-			procezor.GetArticleCode(ARTICLE_TAXING_ADVPAYM),
+			procezor.GetArticleCode(ARTICLE_INCOME_GROSS.Id()),
+			procezor.GetArticleCode(ARTICLE_HEALTH_INSPAYM.Id()),
+			procezor.GetArticleCode(ARTICLE_SOCIAL_INSPAYM.Id()),
+			procezor.GetArticleCode(ARTICLE_TAXING_ADVPAYM.Id()),
 		}, IncomeNettoConceptEval) }
 }
 
 func NewIncomeNettoConProv() procezor.IConceptSpecProvider {
 	const (
-		CONCEPT_CODE int32 = CONCEPT_INCOME_NETTO
+		CONCEPT_CODE = CONCEPT_INCOME_NETTO
 	)
-	return &IncomeNettoConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE)}
+	return &IncomeNettoConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
 }
 
 

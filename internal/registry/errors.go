@@ -69,6 +69,20 @@ func (e termResultError) Error() string {
 	return fmt.Sprintf("error: %v", e.Err())
 }
 
+func (e termResultError) ArticleDescr() string {
+	if e.target == nil {
+		return e.target.ArticleDescr()
+	}
+	return fmt.Sprintf("ArticleCode for: %v", e.article.Value())
+}
+
+func (e termResultError) ConceptDescr() string {
+	if e.target == nil {
+		return e.target.ConceptDescr()
+	}
+	return fmt.Sprintf("ConceptCode for: %v", e.concept.Value())
+}
+
 func newResultError(err string) types.ITermResultError {
 	return termResultError{ err: errors.New(err) }
 }

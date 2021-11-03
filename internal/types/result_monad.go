@@ -17,6 +17,8 @@ type ITermResultError interface {
 	InnerResult() ITermResultError
 	Err()         error
 	Error()       string
+	ArticleDescr() string
+	ConceptDescr() string
 }
 
 type FailureResult struct {

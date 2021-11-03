@@ -1,11 +1,14 @@
 package types
 
+import "fmt"
+
 type ITermSymbol interface {
 	Contract() ContractCode
 	Position() PositionCode
 	Month() MonthCode
 	Article() ArticleCode
 	Variant() VariantCode
+	ArticleDescr() string
 }
 
 type ITermTarget interface {
@@ -13,6 +16,7 @@ type ITermTarget interface {
 	Concept() ConceptCode
 	TarBasis() int32
 	Defs() IArticleDefine
+	ConceptDescr() string
 }
 
 type ITermTargetList []ITermTarget
@@ -61,6 +65,14 @@ func (t TermTarget) Concept() ConceptCode {
 
 func (t TermTarget) Defs() IArticleDefine {
 	return GetArticleDefine(t.Article().Value(), t.Concept().Value())
+}
+
+func (t TermTarget) ArticleDescr() string {
+	return fmt.Sprintf("ArticleCode for: %v", t.article.Value())
+}
+
+func (t TermTarget) ConceptDescr() string {
+	return fmt.Sprintf("ConceptCode for: %v", t.concept.Value())
 }
 
 func (t TermTarget) TarBasis()  int32 {

@@ -1,5 +1,7 @@
 package types
 
+import "fmt"
+
 type NameDescriptionFce func (int32) string
 
 type ITermResult interface {
@@ -8,6 +10,7 @@ type ITermResult interface {
 	ResultDescr() string
 	ResultBasis() int32
 	ResultValue() int32
+	ConceptDescr() string
 }
 
 type TermResult struct {
@@ -39,6 +42,14 @@ func (t TermResult) ResultBasis() int32 {
 
 func (t TermResult) ResultValue() int32 {
 	return t.resultValue
+}
+
+func (t TermResult) ArticleDescr() string {
+	return fmt.Sprintf("ArticleCode for: %v", t.article.Value())
+}
+
+func (t TermResult) ConceptDescr() string {
+	return fmt.Sprintf("ConceptCode for: %v", t.concept.Value())
 }
 
 func NewTermResult(target ITermTarget, value int32, basis int32, descr string) TermResult {
