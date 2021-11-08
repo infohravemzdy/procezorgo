@@ -215,6 +215,8 @@ func NewConceptSpecFactoryWithProviders(providersMap map[int32]IConceptSpecProvi
 	}
 }
 
+type IBundleProps = legalios.IBundleProps
+
 type ITermTarget = types.ITermTarget
 
 type TermTarget = types.TermTarget

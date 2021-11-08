@@ -10,22 +10,21 @@ func (p TimeshtWorkingArtProv) GetSpec(period procezor.IPeriod, version procezor
 	return NewTimeshtWorkingArtSpec(p.Code().Value())
 }
 
+func NewTimeshtWorkingArtProv() procezor.IArticleSpecProvider {
+	ArticleCode := ARTICLE_TIMESHT_WORKING.Id()
+
+	return &TimeshtWorkingArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ArticleCode)}
+}
+
 type TimeshtWorkingArtSpec struct {
 	procezor.ArticleSpec
 }
 
 func NewTimeshtWorkingArtSpec(code int32) procezor.IArticleSpec {
-	const (
-		CONCEPT_CODE = CONCEPT_TIMESHT_WORKING
-	)
-	return &TimeshtWorkingArtSpec{ArticleSpec: procezor.NewArticleSpec(code, CONCEPT_CODE.Id())}
-}
+	ConceptCode := CONCEPT_TIMESHT_WORKING.Id()
 
-func NewTimeshtWorkingArtProv() procezor.IArticleSpecProvider {
-	const (
-		ARTICLE_CODE = ARTICLE_TIMESHT_WORKING
-	)
-	return &TimeshtWorkingArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ARTICLE_CODE.Id())}
+	var _sums []int32
+	return &TimeshtWorkingArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
 }
 
 type PaymentSalaryArtProv struct {
@@ -36,28 +35,26 @@ func (p PaymentSalaryArtProv) GetSpec(period procezor.IPeriod, version procezor.
 	return NewPaymentSalaryArtSpec(p.Code().Value())
 }
 
+func NewPaymentSalaryArtProv() procezor.IArticleSpecProvider {
+	ArticleCode := ARTICLE_PAYMENT_SALARY.Id()
+
+	return &PaymentSalaryArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ArticleCode)}
+}
+
 type PaymentSalaryArtSpec struct {
 	procezor.ArticleSpec
 }
 
 func NewPaymentSalaryArtSpec(code int32) procezor.IArticleSpec {
-	const (
-		CONCEPT_CODE = CONCEPT_AMOUNT_BASIS
-	)
+	ConceptCode := CONCEPT_AMOUNT_BASIS.Id()
+
 	_sums := []int32{
 		ARTICLE_INCOME_GROSS.Id(),
 		ARTICLE_HEALTH_INSBASE.Id(),
 		ARTICLE_SOCIAL_INSBASE.Id(),
 		ARTICLE_TAXING_ADVBASE.Id(),
 	}
-	return &PaymentSalaryArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, CONCEPT_CODE.Id(), _sums)}
-}
-
-func NewPaymentSalaryArtProv() procezor.IArticleSpecProvider {
-	const (
-		ARTICLE_CODE = ARTICLE_PAYMENT_SALARY
-	)
-	return &PaymentSalaryArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ARTICLE_CODE.Id())}
+	return &PaymentSalaryArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
 }
 
 type PaymentBonusArtProv struct {
@@ -68,28 +65,26 @@ func (p PaymentBonusArtProv) GetSpec(period procezor.IPeriod, version procezor.V
 	return NewPaymentBonusArtSpec(p.Code().Value())
 }
 
+func NewPaymentBonusArtProv() procezor.IArticleSpecProvider {
+	ArticleCode := ARTICLE_PAYMENT_BONUS.Id()
+
+	return &PaymentBonusArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ArticleCode)}
+}
+
 type PaymentBonusArtSpec struct {
 	procezor.ArticleSpec
 }
 
 func NewPaymentBonusArtSpec(code int32) procezor.IArticleSpec {
-	const (
-		CONCEPT_CODE = CONCEPT_AMOUNT_FIXED
-	)
+	ConceptCode := CONCEPT_AMOUNT_FIXED.Id()
+
 	_sums := []int32{
 		ARTICLE_INCOME_GROSS.Id(),
 		ARTICLE_HEALTH_INSBASE.Id(),
 		ARTICLE_SOCIAL_INSBASE.Id(),
 		ARTICLE_TAXING_ADVBASE.Id(),
 	}
-	return &PaymentBonusArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, CONCEPT_CODE.Id(), _sums)}
-}
-
-func NewPaymentBonusArtProv() procezor.IArticleSpecProvider {
-	const (
-		ARTICLE_CODE = ARTICLE_PAYMENT_BONUS
-	)
-	return &PaymentBonusArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ARTICLE_CODE.Id())}
+	return &PaymentBonusArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
 }
 
 type PaymentBarterArtProv struct {
@@ -100,27 +95,25 @@ func (p PaymentBarterArtProv) GetSpec(period procezor.IPeriod, version procezor.
 	return NewPaymentBarterArtSpec(p.Code().Value())
 }
 
+func NewPaymentBarterArtProv() procezor.IArticleSpecProvider {
+	ArticleCode := ARTICLE_PAYMENT_BARTER.Id()
+
+	return &PaymentBarterArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ArticleCode)}
+}
+
 type PaymentBarterArtSpec struct {
 	procezor.ArticleSpec
 }
 
 func NewPaymentBarterArtSpec(code int32) procezor.IArticleSpec {
-	const (
-		CONCEPT_CODE = CONCEPT_AMOUNT_FIXED
-	)
+	ConceptCode := CONCEPT_AMOUNT_FIXED.Id()
+
 	_sums := []int32{
 		ARTICLE_HEALTH_INSBASE.Id(),
 		ARTICLE_SOCIAL_INSBASE.Id(),
 		ARTICLE_TAXING_ADVBASE.Id(),
 	}
-	return &PaymentBarterArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, CONCEPT_CODE.Id(), _sums)}
-}
-
-func NewPaymentBarterArtProv() procezor.IArticleSpecProvider {
-	const (
-		ARTICLE_CODE = ARTICLE_PAYMENT_BARTER
-	)
-	return &PaymentBarterArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ARTICLE_CODE.Id())}
+	return &PaymentBarterArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
 }
 
 type AllowceHofficeArtProv struct {
@@ -131,25 +124,23 @@ func (p AllowceHofficeArtProv) GetSpec(period procezor.IPeriod, version procezor
 	return NewAllowceHofficeArtSpec(p.Code().Value())
 }
 
+func NewAllowceHofficeArtProv() procezor.IArticleSpecProvider {
+	ArticleCode := ARTICLE_ALLOWCE_HOFFICE.Id()
+
+	return &AllowceHofficeArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ArticleCode)}
+}
+
 type AllowceHofficeArtSpec struct {
 	procezor.ArticleSpec
 }
 
 func NewAllowceHofficeArtSpec(code int32) procezor.IArticleSpec {
-	const (
-		CONCEPT_CODE = CONCEPT_AMOUNT_FIXED
-	)
+	ConceptCode := CONCEPT_AMOUNT_FIXED.Id()
+
 	_sums := []int32{
 		ARTICLE_INCOME_NETTO.Id(),
 	}
-	return &AllowceHofficeArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, CONCEPT_CODE.Id(), _sums)}
-}
-
-func NewAllowceHofficeArtProv() procezor.IArticleSpecProvider {
-	const (
-		ARTICLE_CODE = ARTICLE_ALLOWCE_HOFFICE
-	)
-	return &AllowceHofficeArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ARTICLE_CODE.Id())}
+	return &AllowceHofficeArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
 }
 
 type HealthInsbaseArtProv struct {
@@ -160,22 +151,21 @@ func (p HealthInsbaseArtProv) GetSpec(period procezor.IPeriod, version procezor.
 	return NewHealthInsbaseArtSpec(p.Code().Value())
 }
 
+func NewHealthInsbaseArtProv() procezor.IArticleSpecProvider {
+	ArticleCode := ARTICLE_HEALTH_INSBASE.Id()
+
+	return &HealthInsbaseArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ArticleCode)}
+}
+
 type HealthInsbaseArtSpec struct {
 	procezor.ArticleSpec
 }
 
 func NewHealthInsbaseArtSpec(code int32) procezor.IArticleSpec {
-	const (
-		CONCEPT_CODE = CONCEPT_HEALTH_INSBASE
-	)
-	return &HealthInsbaseArtSpec{ArticleSpec: procezor.NewArticleSpec(code, CONCEPT_CODE.Id())}
-}
+	ConceptCode := CONCEPT_HEALTH_INSBASE.Id()
 
-func NewHealthInsbaseArtProv() procezor.IArticleSpecProvider {
-	const (
-		ARTICLE_CODE = ARTICLE_HEALTH_INSBASE
-	)
-	return &HealthInsbaseArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ARTICLE_CODE.Id())}
+	var _sums []int32
+	return &HealthInsbaseArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
 }
 
 type SocialInsbaseArtProv struct {
@@ -186,48 +176,21 @@ func (p SocialInsbaseArtProv) GetSpec(period procezor.IPeriod, version procezor.
 	return NewSocialInsbaseArtSpec(p.Code().Value())
 }
 
+func NewSocialInsbaseArtProv() procezor.IArticleSpecProvider {
+	ArticleCode := ARTICLE_SOCIAL_INSBASE.Id()
+
+	return &SocialInsbaseArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ArticleCode)}
+}
+
 type SocialInsbaseArtSpec struct {
 	procezor.ArticleSpec
 }
 
 func NewSocialInsbaseArtSpec(code int32) procezor.IArticleSpec {
-	const (
-		CONCEPT_CODE = CONCEPT_SOCIAL_INSBASE
-	)
-	return &SocialInsbaseArtSpec{ArticleSpec: procezor.NewArticleSpec(code, CONCEPT_CODE.Id())}
-}
+	ConceptCode := CONCEPT_SOCIAL_INSBASE.Id()
 
-func NewSocialInsbaseArtProv() procezor.IArticleSpecProvider {
-	const (
-		ARTICLE_CODE = ARTICLE_SOCIAL_INSBASE
-	)
-	return &SocialInsbaseArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ARTICLE_CODE.Id())}
-}
-
-type TaxingAdvbaseArtProv struct {
-	procezor.ArticleSpecProvider
-}
-
-func (p TaxingAdvbaseArtProv) GetSpec(period procezor.IPeriod, version procezor.VersionCode) procezor.IArticleSpec {
-	return NewTaxingAdvbaseArtSpec(p.Code().Value())
-}
-
-type TaxingAdvbaseArtSpec struct {
-	procezor.ArticleSpec
-}
-
-func NewTaxingAdvbaseArtSpec(code int32) procezor.IArticleSpec {
-	const (
-		CONCEPT_CODE = CONCEPT_TAXING_ADVBASE
-	)
-	return &TaxingAdvbaseArtSpec{ArticleSpec: procezor.NewArticleSpec(code, CONCEPT_CODE.Id())}
-}
-
-func NewTaxingAdvbaseArtProv() procezor.IArticleSpecProvider {
-	const (
-		ARTICLE_CODE = ARTICLE_TAXING_ADVBASE
-	)
-	return &TaxingAdvbaseArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ARTICLE_CODE.Id())}
+	var _sums []int32
+	return &SocialInsbaseArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
 }
 
 type HealthInspaymArtProv struct {
@@ -238,22 +201,21 @@ func (p HealthInspaymArtProv) GetSpec(period procezor.IPeriod, version procezor.
 	return NewHealthInspaymArtSpec(p.Code().Value())
 }
 
+func NewHealthInspaymArtProv() procezor.IArticleSpecProvider {
+	ArticleCode := ARTICLE_HEALTH_INSPAYM.Id()
+
+	return &HealthInspaymArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ArticleCode)}
+}
+
 type HealthInspaymArtSpec struct {
 	procezor.ArticleSpec
 }
 
 func NewHealthInspaymArtSpec(code int32) procezor.IArticleSpec {
-	const (
-		CONCEPT_CODE = CONCEPT_HEALTH_INSPAYM
-	)
-	return &HealthInspaymArtSpec{ArticleSpec: procezor.NewArticleSpec(code, CONCEPT_CODE.Id())}
-}
+	ConceptCode := CONCEPT_HEALTH_INSPAYM.Id()
 
-func NewHealthInspaymArtProv() procezor.IArticleSpecProvider {
-	const (
-		ARTICLE_CODE = ARTICLE_HEALTH_INSPAYM
-	)
-	return &HealthInspaymArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ARTICLE_CODE.Id())}
+	var _sums []int32
+	return &HealthInspaymArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
 }
 
 type SocialInspaymArtProv struct {
@@ -264,22 +226,46 @@ func (p SocialInspaymArtProv) GetSpec(period procezor.IPeriod, version procezor.
 	return NewSocialInspaymArtSpec(p.Code().Value())
 }
 
+func NewSocialInspaymArtProv() procezor.IArticleSpecProvider {
+	ArticleCode := ARTICLE_SOCIAL_INSPAYM.Id()
+
+	return &SocialInspaymArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ArticleCode)}
+}
+
 type SocialInspaymArtSpec struct {
 	procezor.ArticleSpec
 }
 
 func NewSocialInspaymArtSpec(code int32) procezor.IArticleSpec {
-	const (
-		CONCEPT_CODE = CONCEPT_SOCIAL_INSPAYM
-	)
-	return &SocialInspaymArtSpec{ArticleSpec: procezor.NewArticleSpec(code, CONCEPT_CODE.Id())}
+	ConceptCode := CONCEPT_SOCIAL_INSPAYM.Id()
+
+	var _sums []int32
+	return &SocialInspaymArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
 }
 
-func NewSocialInspaymArtProv() procezor.IArticleSpecProvider {
-	const (
-		ARTICLE_CODE = ARTICLE_SOCIAL_INSPAYM
-	)
-	return &SocialInspaymArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ARTICLE_CODE.Id())}
+type TaxingAdvbaseArtProv struct {
+	procezor.ArticleSpecProvider
+}
+
+func (p TaxingAdvbaseArtProv) GetSpec(period procezor.IPeriod, version procezor.VersionCode) procezor.IArticleSpec {
+	return NewTaxingAdvbaseArtSpec(p.Code().Value())
+}
+
+func NewTaxingAdvbaseArtProv() procezor.IArticleSpecProvider {
+	ArticleCode := ARTICLE_TAXING_ADVBASE.Id()
+
+	return &TaxingAdvbaseArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ArticleCode)}
+}
+
+type TaxingAdvbaseArtSpec struct {
+	procezor.ArticleSpec
+}
+
+func NewTaxingAdvbaseArtSpec(code int32) procezor.IArticleSpec {
+	ConceptCode := CONCEPT_TAXING_ADVBASE.Id()
+
+	var _sums []int32
+	return &TaxingAdvbaseArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
 }
 
 type TaxingAdvpaymArtProv struct {
@@ -290,22 +276,21 @@ func (p TaxingAdvpaymArtProv) GetSpec(period procezor.IPeriod, version procezor.
 	return NewTaxingAdvpaymArtSpec(p.Code().Value())
 }
 
+func NewTaxingAdvpaymArtProv() procezor.IArticleSpecProvider {
+	ArticleCode := ARTICLE_TAXING_ADVPAYM.Id()
+
+	return &TaxingAdvpaymArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ArticleCode)}
+}
+
 type TaxingAdvpaymArtSpec struct {
 	procezor.ArticleSpec
 }
 
 func NewTaxingAdvpaymArtSpec(code int32) procezor.IArticleSpec {
-	const (
-		CONCEPT_CODE = CONCEPT_TAXING_ADVPAYM
-	)
-	return &TaxingAdvpaymArtSpec{ArticleSpec: procezor.NewArticleSpec(code, CONCEPT_CODE.Id())}
-}
+	ConceptCode := CONCEPT_TAXING_ADVPAYM.Id()
 
-func NewTaxingAdvpaymArtProv() procezor.IArticleSpecProvider {
-	const (
-		ARTICLE_CODE = ARTICLE_TAXING_ADVPAYM
-	)
-	return &TaxingAdvpaymArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ARTICLE_CODE.Id())}
+	var _sums []int32
+	return &TaxingAdvpaymArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
 }
 
 type IncomeGrossArtProv struct {
@@ -316,22 +301,21 @@ func (p IncomeGrossArtProv) GetSpec(period procezor.IPeriod, version procezor.Ve
 	return NewIncomeGrossArtSpec(p.Code().Value())
 }
 
+func NewIncomeGrossArtProv() procezor.IArticleSpecProvider {
+	ArticleCode := ARTICLE_INCOME_GROSS.Id()
+
+	return &IncomeGrossArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ArticleCode)}
+}
+
 type IncomeGrossArtSpec struct {
 	procezor.ArticleSpec
 }
 
 func NewIncomeGrossArtSpec(code int32) procezor.IArticleSpec {
-	const (
-		CONCEPT_CODE = CONCEPT_INCOME_GROSS
-	)
-	return &IncomeGrossArtSpec{ArticleSpec: procezor.NewArticleSpec(code, CONCEPT_CODE.Id())}
-}
+	ConceptCode := CONCEPT_INCOME_GROSS.Id()
 
-func NewIncomeGrossArtProv() procezor.IArticleSpecProvider {
-	const (
-		ARTICLE_CODE = ARTICLE_INCOME_GROSS
-	)
-	return &IncomeGrossArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ARTICLE_CODE.Id())}
+	var _sums []int32
+	return &IncomeGrossArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
 }
 
 type IncomeNettoArtProv struct {
@@ -342,20 +326,20 @@ func (p IncomeNettoArtProv) GetSpec(period procezor.IPeriod, version procezor.Ve
 	return NewIncomeNettoArtSpec(p.Code().Value())
 }
 
+func NewIncomeNettoArtProv() procezor.IArticleSpecProvider {
+	ArticleCode := ARTICLE_INCOME_NETTO.Id()
+
+	return &IncomeNettoArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ArticleCode)}
+}
+
 type IncomeNettoArtSpec struct {
 	procezor.ArticleSpec
 }
 
 func NewIncomeNettoArtSpec(code int32) procezor.IArticleSpec {
-	const (
-		CONCEPT_CODE = CONCEPT_INCOME_NETTO
-	)
-	return &IncomeNettoArtSpec{ArticleSpec: procezor.NewArticleSpec(code, CONCEPT_CODE.Id())}
+	ConceptCode := CONCEPT_INCOME_NETTO.Id()
+
+	var _sums []int32
+	return &IncomeNettoArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
 }
 
-func NewIncomeNettoArtProv() procezor.IArticleSpecProvider {
-	const (
-		ARTICLE_CODE = ARTICLE_INCOME_NETTO
-	)
-	return &IncomeNettoArtProv{ArticleSpecProvider: procezor.NewArticleProvider(ARTICLE_CODE.Id())}
-}

@@ -62,18 +62,6 @@ func NewEmptySocialInsbaseResult(target procezor.ITermTarget) procezor.ITermResu
 	return &SocialInsbaseResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
 }
 
-type TaxingAdvbaseResult struct {
-	ExampleTermResult
-}
-
-func NewTaxingAdvbaseResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &TaxingAdvbaseResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
-}
-
-func NewEmptyTaxingAdvbaseResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &TaxingAdvbaseResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
-}
-
 type HealthInspaymResult struct {
 	ExampleTermResult
 }
@@ -96,6 +84,18 @@ func NewSocialInspaymResult(target procezor.ITermTarget, value int32, basis int3
 
 func NewEmptySocialInspaymResult(target procezor.ITermTarget) procezor.ITermResult {
 	return &SocialInspaymResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+}
+
+type TaxingAdvbaseResult struct {
+	ExampleTermResult
+}
+
+func NewTaxingAdvbaseResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
+	return &TaxingAdvbaseResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
+}
+
+func NewEmptyTaxingAdvbaseResult(target procezor.ITermTarget) procezor.ITermResult {
+	return &TaxingAdvbaseResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
 }
 
 type TaxingAdvpaymResult struct {
@@ -133,3 +133,4 @@ func NewIncomeNettoResult(target procezor.ITermTarget, value int32, basis int32,
 func NewEmptyIncomeNettoResult(target procezor.ITermTarget) procezor.ITermResult {
 	return &IncomeNettoResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
 }
+

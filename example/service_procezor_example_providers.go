@@ -1,12 +1,17 @@
 package example
 
 import (
-	legalios "github.com/mzdyhrave/legaliosgo"
 	procezor "github.com/mzdyhrave/procezorgo"
 )
 
 type TimeshtWorkingConProv struct {
 	procezor.ConceptSpecProvider
+}
+
+func NewTimeshtWorkingConProv() procezor.IConceptSpecProvider {
+	ConceptCode := CONCEPT_TIMESHT_WORKING.Id()
+
+	return &TimeshtWorkingConProv{ConceptSpecProvider: procezor.NewConceptProvider(ConceptCode)}
 }
 
 func (p TimeshtWorkingConProv) GetSpec(period procezor.IPeriod, version procezor.VersionCode) procezor.IConceptSpec {
@@ -17,25 +22,26 @@ type TimeshtWorkingConSpec struct {
 	ExampleConceptSpec
 }
 
-func TimeshtWorkingConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset legalios.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+func NewTimeshtWorkingConSpec(role int32) procezor.IConceptSpec {
+	var _path []int32
+	return &TimeshtWorkingConSpec{
+		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, TimeshtWorkingConceptEval) }
+}
+
+func TimeshtWorkingConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
 	resultsValues := NewTimeshtWorkingResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
 
-func NewTimeshtWorkingConSpec(role int32) procezor.IConceptSpec {
-	return &TimeshtWorkingConSpec{ExampleConceptSpec: NewExampleConceptFuncSpec(role, TimeshtWorkingConceptEval) }
-}
-
-func NewTimeshtWorkingConProv() procezor.IConceptSpecProvider {
-	const (
-		CONCEPT_CODE = CONCEPT_TIMESHT_WORKING
-	)
-	return &TimeshtWorkingConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
-}
-
 type AmountBasisConProv struct {
 	procezor.ConceptSpecProvider
+}
+
+func NewAmountBasisConProv() procezor.IConceptSpecProvider {
+	ConceptCode := CONCEPT_AMOUNT_BASIS.Id()
+
+	return &AmountBasisConProv{ConceptSpecProvider: procezor.NewConceptProvider(ConceptCode)}
 }
 
 func (p AmountBasisConProv) GetSpec(period procezor.IPeriod, version procezor.VersionCode) procezor.IConceptSpec {
@@ -46,28 +52,28 @@ type AmountBasisConSpec struct {
 	ExampleConceptSpec
 }
 
-func AmountBasisConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset legalios.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+func NewAmountBasisConSpec(role int32) procezor.IConceptSpec {
+	_path := []int32{
+		ARTICLE_TIMESHT_WORKING.Id(),
+	}
+	return &AmountBasisConSpec{
+		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, AmountBasisConceptEval) }
+}
+
+func AmountBasisConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
 	resultsValues := NewAmountBasisResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
 
-func NewAmountBasisConSpec(role int32) procezor.IConceptSpec {
-	return &AmountBasisConSpec{ExampleConceptSpec: NewExampleConceptPathFuncSpec(role,
-		procezor.ArticleCodeList{
-			procezor.GetArticleCode(ARTICLE_TIMESHT_WORKING.Id()),
-		}, AmountBasisConceptEval) }
-}
-
-func NewAmountBasisConProv() procezor.IConceptSpecProvider {
-	const (
-		CONCEPT_CODE = CONCEPT_AMOUNT_BASIS
-	)
-	return &AmountBasisConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
-}
-
 type AmountFixedConProv struct {
 	procezor.ConceptSpecProvider
+}
+
+func NewAmountFixedConProv() procezor.IConceptSpecProvider {
+	ConceptCode := CONCEPT_AMOUNT_FIXED.Id()
+
+	return &AmountFixedConProv{ConceptSpecProvider: procezor.NewConceptProvider(ConceptCode)}
 }
 
 func (p AmountFixedConProv) GetSpec(period procezor.IPeriod, version procezor.VersionCode) procezor.IConceptSpec {
@@ -78,25 +84,26 @@ type AmountFixedConSpec struct {
 	ExampleConceptSpec
 }
 
-func AmountFixedConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset legalios.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+func NewAmountFixedConSpec(role int32) procezor.IConceptSpec {
+	var _path []int32
+	return &AmountFixedConSpec{
+		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, AmountFixedConceptEval) }
+}
+
+func AmountFixedConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
 	resultsValues := NewAmountFixedResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
 
-func NewAmountFixedConSpec(role int32) procezor.IConceptSpec {
-	return &AmountFixedConSpec{ExampleConceptSpec: NewExampleConceptFuncSpec(role, AmountFixedConceptEval) }
-}
-
-func NewAmountFixedConProv() procezor.IConceptSpecProvider {
-	const (
-		CONCEPT_CODE = CONCEPT_AMOUNT_FIXED
-	)
-	return &AmountFixedConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
-}
-
 type HealthInsbaseConProv struct {
 	procezor.ConceptSpecProvider
+}
+
+func NewHealthInsbaseConProv() procezor.IConceptSpecProvider {
+	ConceptCode := CONCEPT_HEALTH_INSBASE.Id()
+
+	return &HealthInsbaseConProv{ConceptSpecProvider: procezor.NewConceptProvider(ConceptCode)}
 }
 
 func (p HealthInsbaseConProv) GetSpec(period procezor.IPeriod, version procezor.VersionCode) procezor.IConceptSpec {
@@ -107,25 +114,26 @@ type HealthInsbaseConSpec struct {
 	ExampleConceptSpec
 }
 
-func HealthInsbaseConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset legalios.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+func NewHealthInsbaseConSpec(role int32) procezor.IConceptSpec {
+	var _path []int32
+	return &HealthInsbaseConSpec{
+		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, HealthInsbaseConceptEval) }
+}
+
+func HealthInsbaseConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
 	resultsValues := NewHealthInsbaseResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
 
-func NewHealthInsbaseConSpec(role int32) procezor.IConceptSpec {
-	return &HealthInsbaseConSpec{ExampleConceptSpec: NewExampleConceptFuncSpec(role, HealthInsbaseConceptEval) }
-}
-
-func NewHealthInsbaseConProv() procezor.IConceptSpecProvider {
-	const (
-		CONCEPT_CODE = CONCEPT_HEALTH_INSBASE
-	)
-	return &HealthInsbaseConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
-}
-
 type SocialInsbaseConProv struct {
 	procezor.ConceptSpecProvider
+}
+
+func NewSocialInsbaseConProv() procezor.IConceptSpecProvider {
+	ConceptCode := CONCEPT_SOCIAL_INSBASE.Id()
+
+	return &SocialInsbaseConProv{ConceptSpecProvider: procezor.NewConceptProvider(ConceptCode)}
 }
 
 func (p SocialInsbaseConProv) GetSpec(period procezor.IPeriod, version procezor.VersionCode) procezor.IConceptSpec {
@@ -136,54 +144,26 @@ type SocialInsbaseConSpec struct {
 	ExampleConceptSpec
 }
 
-func SocialInsbaseConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset legalios.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+func NewSocialInsbaseConSpec(role int32) procezor.IConceptSpec {
+	var _path []int32
+	return &SocialInsbaseConSpec{
+		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, SocialInsbaseConceptEval) }
+}
+
+func SocialInsbaseConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
 	resultsValues := NewSocialInsbaseResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
 
-func NewSocialInsbaseConSpec(role int32) procezor.IConceptSpec {
-	return &SocialInsbaseConSpec{ExampleConceptSpec: NewExampleConceptFuncSpec(role, SocialInsbaseConceptEval) }
-}
-
-func NewSocialInsbaseConProv() procezor.IConceptSpecProvider {
-	const (
-		CONCEPT_CODE = CONCEPT_SOCIAL_INSBASE
-	)
-	return &SocialInsbaseConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
-}
-
-type TaxingAdvbaseConProv struct {
-	procezor.ConceptSpecProvider
-}
-
-func (p TaxingAdvbaseConProv) GetSpec(period procezor.IPeriod, version procezor.VersionCode) procezor.IConceptSpec {
-	return NewTaxingAdvbaseConSpec(p.Code().Value())
-}
-
-type TaxingAdvbaseConSpec struct {
-	ExampleConceptSpec
-}
-
-func TaxingAdvbaseConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset legalios.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
-	resultsValues := NewTaxingAdvbaseResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
-	successResult := procezor.NewSuccessResult(resultsValues, period)
-	return procezor.IBuilderResultList{successResult}
-}
-
-func NewTaxingAdvbaseConSpec(role int32) procezor.IConceptSpec {
-	return &TaxingAdvbaseConSpec{ExampleConceptSpec: NewExampleConceptFuncSpec(role, TaxingAdvbaseConceptEval) }
-}
-
-func NewTaxingAdvbaseConProv() procezor.IConceptSpecProvider {
-	const (
-		CONCEPT_CODE = CONCEPT_TAXING_ADVBASE
-	)
-	return &TaxingAdvbaseConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
-}
-
 type HealthInspaymConProv struct {
 	procezor.ConceptSpecProvider
+}
+
+func NewHealthInspaymConProv() procezor.IConceptSpecProvider {
+	ConceptCode := CONCEPT_HEALTH_INSPAYM.Id()
+
+	return &HealthInspaymConProv{ConceptSpecProvider: procezor.NewConceptProvider(ConceptCode)}
 }
 
 func (p HealthInspaymConProv) GetSpec(period procezor.IPeriod, version procezor.VersionCode) procezor.IConceptSpec {
@@ -194,28 +174,28 @@ type HealthInspaymConSpec struct {
 	ExampleConceptSpec
 }
 
-func HealthInspaymConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset legalios.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+func NewHealthInspaymConSpec(role int32) procezor.IConceptSpec {
+	_path := []int32{
+		ARTICLE_HEALTH_INSBASE.Id(),
+	}
+	return &HealthInspaymConSpec{
+		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, HealthInspaymConceptEval) }
+}
+
+func HealthInspaymConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
 	resultsValues := NewHealthInspaymResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
 
-func NewHealthInspaymConSpec(role int32) procezor.IConceptSpec {
-	return &HealthInspaymConSpec{ExampleConceptSpec: NewExampleConceptPathFuncSpec(role,
-		procezor.ArticleCodeList{
-			procezor.GetArticleCode(ARTICLE_HEALTH_INSBASE.Id()),
-		}, HealthInspaymConceptEval) }
-}
-
-func NewHealthInspaymConProv() procezor.IConceptSpecProvider {
-	const (
-		CONCEPT_CODE = CONCEPT_HEALTH_INSPAYM
-	)
-	return &HealthInspaymConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
-}
-
 type SocialInspaymConProv struct {
 	procezor.ConceptSpecProvider
+}
+
+func NewSocialInspaymConProv() procezor.IConceptSpecProvider {
+	ConceptCode := CONCEPT_SOCIAL_INSPAYM.Id()
+
+	return &SocialInspaymConProv{ConceptSpecProvider: procezor.NewConceptProvider(ConceptCode)}
 }
 
 func (p SocialInspaymConProv) GetSpec(period procezor.IPeriod, version procezor.VersionCode) procezor.IConceptSpec {
@@ -226,28 +206,58 @@ type SocialInspaymConSpec struct {
 	ExampleConceptSpec
 }
 
-func SocialInspaymConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset legalios.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+func NewSocialInspaymConSpec(role int32) procezor.IConceptSpec {
+	_path := []int32{
+		ARTICLE_SOCIAL_INSBASE.Id(),
+	}
+	return &SocialInspaymConSpec{
+		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, SocialInspaymConceptEval) }
+}
+
+func SocialInspaymConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
 	resultsValues := NewSocialInspaymResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
 
-func NewSocialInspaymConSpec(role int32) procezor.IConceptSpec {
-	return &SocialInspaymConSpec{ExampleConceptSpec: NewExampleConceptPathFuncSpec(role,
-		procezor.ArticleCodeList{
-			procezor.GetArticleCode(ARTICLE_SOCIAL_INSBASE.Id()),
-		}, SocialInspaymConceptEval) }
+type TaxingAdvbaseConProv struct {
+	procezor.ConceptSpecProvider
 }
 
-func NewSocialInspaymConProv() procezor.IConceptSpecProvider {
-	const (
-		CONCEPT_CODE = CONCEPT_SOCIAL_INSPAYM
-	)
-	return &SocialInspaymConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
+func NewTaxingAdvbaseConProv() procezor.IConceptSpecProvider {
+	ConceptCode := CONCEPT_TAXING_ADVBASE.Id()
+
+	return &TaxingAdvbaseConProv{ConceptSpecProvider: procezor.NewConceptProvider(ConceptCode)}
+}
+
+func (p TaxingAdvbaseConProv) GetSpec(period procezor.IPeriod, version procezor.VersionCode) procezor.IConceptSpec {
+	return NewTaxingAdvbaseConSpec(p.Code().Value())
+}
+
+type TaxingAdvbaseConSpec struct {
+	ExampleConceptSpec
+}
+
+func NewTaxingAdvbaseConSpec(role int32) procezor.IConceptSpec {
+	var _path []int32
+	return &TaxingAdvbaseConSpec{
+		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, TaxingAdvbaseConceptEval) }
+}
+
+func TaxingAdvbaseConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+	resultsValues := NewTaxingAdvbaseResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
+	successResult := procezor.NewSuccessResult(resultsValues, period)
+	return procezor.IBuilderResultList{successResult}
 }
 
 type TaxingAdvpaymConProv struct {
 	procezor.ConceptSpecProvider
+}
+
+func NewTaxingAdvpaymConProv() procezor.IConceptSpecProvider {
+	ConceptCode := CONCEPT_TAXING_ADVPAYM.Id()
+
+	return &TaxingAdvpaymConProv{ConceptSpecProvider: procezor.NewConceptProvider(ConceptCode)}
 }
 
 func (p TaxingAdvpaymConProv) GetSpec(period procezor.IPeriod, version procezor.VersionCode) procezor.IConceptSpec {
@@ -258,28 +268,28 @@ type TaxingAdvpaymConSpec struct {
 	ExampleConceptSpec
 }
 
-func TaxingAdvpaymConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset legalios.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+func NewTaxingAdvpaymConSpec(role int32) procezor.IConceptSpec {
+	_path := []int32{
+		ARTICLE_TAXING_ADVBASE.Id(),
+	}
+	return &TaxingAdvpaymConSpec{
+		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, TaxingAdvpaymConceptEval) }
+}
+
+func TaxingAdvpaymConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
 	resultsValues := NewTaxingAdvpaymResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
 
-func NewTaxingAdvpaymConSpec(role int32) procezor.IConceptSpec {
-	return &TaxingAdvpaymConSpec{ExampleConceptSpec: NewExampleConceptPathFuncSpec(role,
-		procezor.ArticleCodeList{
-			procezor.GetArticleCode(ARTICLE_TAXING_ADVBASE.Id()),
-		}, TaxingAdvpaymConceptEval) }
-}
-
-func NewTaxingAdvpaymConProv() procezor.IConceptSpecProvider {
-	const (
-		CONCEPT_CODE = CONCEPT_TAXING_ADVPAYM
-	)
-	return &TaxingAdvpaymConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
-}
-
 type IncomeGrossConProv struct {
 	procezor.ConceptSpecProvider
+}
+
+func NewIncomeGrossConProv() procezor.IConceptSpecProvider {
+	ConceptCode := CONCEPT_INCOME_GROSS.Id()
+
+	return &IncomeGrossConProv{ConceptSpecProvider: procezor.NewConceptProvider(ConceptCode)}
 }
 
 func (p IncomeGrossConProv) GetSpec(period procezor.IPeriod, version procezor.VersionCode) procezor.IConceptSpec {
@@ -290,25 +300,26 @@ type IncomeGrossConSpec struct {
 	ExampleConceptSpec
 }
 
-func IncomeGrossConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset legalios.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+func NewIncomeGrossConSpec(role int32) procezor.IConceptSpec {
+	var _path []int32
+	return &IncomeGrossConSpec{
+		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, IncomeGrossConceptEval) }
+}
+
+func IncomeGrossConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
 	resultsValues := NewIncomeGrossResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
 
-func NewIncomeGrossConSpec(role int32) procezor.IConceptSpec {
-	return &IncomeGrossConSpec{ExampleConceptSpec: NewExampleConceptFuncSpec(role, IncomeGrossConceptEval) }
-}
-
-func NewIncomeGrossConProv() procezor.IConceptSpecProvider {
-	const (
-		CONCEPT_CODE = CONCEPT_INCOME_GROSS
-	)
-	return &IncomeGrossConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
-}
-
 type IncomeNettoConProv struct {
 	procezor.ConceptSpecProvider
+}
+
+func NewIncomeNettoConProv() procezor.IConceptSpecProvider {
+	ConceptCode := CONCEPT_INCOME_NETTO.Id()
+
+	return &IncomeNettoConProv{ConceptSpecProvider: procezor.NewConceptProvider(ConceptCode)}
 }
 
 func (p IncomeNettoConProv) GetSpec(period procezor.IPeriod, version procezor.VersionCode) procezor.IConceptSpec {
@@ -319,28 +330,20 @@ type IncomeNettoConSpec struct {
 	ExampleConceptSpec
 }
 
-func IncomeNettoConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset legalios.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+func NewIncomeNettoConSpec(role int32) procezor.IConceptSpec {
+	_path := []int32{
+		ARTICLE_INCOME_GROSS.Id(),
+		ARTICLE_HEALTH_INSPAYM.Id(),
+		ARTICLE_SOCIAL_INSPAYM.Id(),
+		ARTICLE_TAXING_ADVPAYM.Id(),
+	}
+	return &IncomeNettoConSpec{
+		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, IncomeNettoConceptEval) }
+}
+
+func IncomeNettoConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
 	resultsValues := NewIncomeNettoResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
-
-func NewIncomeNettoConSpec(role int32) procezor.IConceptSpec {
-	return &IncomeNettoConSpec{ExampleConceptSpec: NewExampleConceptPathFuncSpec(role,
-		procezor.ArticleCodeList{
-			procezor.GetArticleCode(ARTICLE_INCOME_GROSS.Id()),
-			procezor.GetArticleCode(ARTICLE_HEALTH_INSPAYM.Id()),
-			procezor.GetArticleCode(ARTICLE_SOCIAL_INSPAYM.Id()),
-			procezor.GetArticleCode(ARTICLE_TAXING_ADVPAYM.Id()),
-		}, IncomeNettoConceptEval) }
-}
-
-func NewIncomeNettoConProv() procezor.IConceptSpecProvider {
-	const (
-		CONCEPT_CODE = CONCEPT_INCOME_NETTO
-	)
-	return &IncomeNettoConProv{ConceptSpecProvider: procezor.NewConceptProvider(CONCEPT_CODE.Id())}
-}
-
-
 
