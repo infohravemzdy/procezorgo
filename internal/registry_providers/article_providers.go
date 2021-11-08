@@ -34,6 +34,10 @@ func NewArticleSumSpec(code int32, role int32, sums []types.ArticleCode) Article
 	return ArticleSpec{ code: types.GetArticleCode(code), role: types.GetConceptCode(role), sums: sums }
 }
 
+func NewArticleSumIntSpec(code int32, role int32, sums []int32) ArticleSpec {
+	return ArticleSpec{ code: types.GetArticleCode(code), role: types.GetConceptCode(role), sums: ConstToSumsArray(sums) }
+}
+
 func NewArticleCodeProvider(code int32) ArticleSpecProvider {
 	return ArticleSpecProvider{ code: types.GetArticleCode(code) }
 }

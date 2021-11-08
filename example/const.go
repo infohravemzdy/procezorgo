@@ -1,34 +1,34 @@
 package example
 
-type TestArticleConst int32
+type ExampleArticleConst int32
 
-type TestConceptConst int32
+type ExampleConceptConst int32
 
-const ARTICLE_TIMESHT_WORKING = TestArticleConst(80001)
-const ARTICLE_PAYMENT_SALARY = TestArticleConst(80002)
-const ARTICLE_PAYMENT_BONUS = TestArticleConst(80003)
-const ARTICLE_PAYMENT_BARTER = TestArticleConst(80004)
-const ARTICLE_ALLOWCE_HOFFICE = TestArticleConst(80005)
-const ARTICLE_HEALTH_INSBASE = TestArticleConst(80006)
-const ARTICLE_SOCIAL_INSBASE = TestArticleConst(80007)
-const ARTICLE_HEALTH_INSPAYM = TestArticleConst(80008)
-const ARTICLE_SOCIAL_INSPAYM = TestArticleConst(80009)
-const ARTICLE_TAXING_ADVBASE = TestArticleConst(80010)
-const ARTICLE_TAXING_ADVPAYM = TestArticleConst(80011)
-const ARTICLE_INCOME_GROSS = TestArticleConst(80012)
-const ARTICLE_INCOME_NETTO = TestArticleConst(80013)
+const ARTICLE_TIMESHT_WORKING = ExampleArticleConst(80001)
+const ARTICLE_PAYMENT_SALARY = ExampleArticleConst(80002)
+const ARTICLE_PAYMENT_BONUS = ExampleArticleConst(80003)
+const ARTICLE_PAYMENT_BARTER = ExampleArticleConst(80004)
+const ARTICLE_ALLOWCE_HOFFICE = ExampleArticleConst(80005)
+const ARTICLE_HEALTH_INSBASE = ExampleArticleConst(80006)
+const ARTICLE_SOCIAL_INSBASE = ExampleArticleConst(80007)
+const ARTICLE_HEALTH_INSPAYM = ExampleArticleConst(80008)
+const ARTICLE_SOCIAL_INSPAYM = ExampleArticleConst(80009)
+const ARTICLE_TAXING_ADVBASE = ExampleArticleConst(80010)
+const ARTICLE_TAXING_ADVPAYM = ExampleArticleConst(80011)
+const ARTICLE_INCOME_GROSS = ExampleArticleConst(80012)
+const ARTICLE_INCOME_NETTO = ExampleArticleConst(80013)
 
-const CONCEPT_TIMESHT_WORKING = TestConceptConst(80001)
-const CONCEPT_AMOUNT_BASIS = TestConceptConst(80002)
-const CONCEPT_AMOUNT_FIXED = TestConceptConst(80003)
-const CONCEPT_HEALTH_INSBASE = TestConceptConst(80006)
-const CONCEPT_SOCIAL_INSBASE = TestConceptConst(80007)
-const CONCEPT_HEALTH_INSPAYM = TestConceptConst(80008)
-const CONCEPT_SOCIAL_INSPAYM = TestConceptConst(80009)
-const CONCEPT_TAXING_ADVBASE = TestConceptConst(80010)
-const CONCEPT_TAXING_ADVPAYM = TestConceptConst(80011)
-const CONCEPT_INCOME_GROSS = TestConceptConst(80012)
-const CONCEPT_INCOME_NETTO = TestConceptConst(80013)
+const CONCEPT_TIMESHT_WORKING = ExampleConceptConst(80001)
+const CONCEPT_AMOUNT_BASIS = ExampleConceptConst(80002)
+const CONCEPT_AMOUNT_FIXED = ExampleConceptConst(80003)
+const CONCEPT_HEALTH_INSBASE = ExampleConceptConst(80006)
+const CONCEPT_SOCIAL_INSBASE = ExampleConceptConst(80007)
+const CONCEPT_HEALTH_INSPAYM = ExampleConceptConst(80008)
+const CONCEPT_SOCIAL_INSPAYM = ExampleConceptConst(80009)
+const CONCEPT_TAXING_ADVBASE = ExampleConceptConst(80010)
+const CONCEPT_TAXING_ADVPAYM = ExampleConceptConst(80011)
+const CONCEPT_INCOME_GROSS = ExampleConceptConst(80012)
+const CONCEPT_INCOME_NETTO = ExampleConceptConst(80013)
 
 const (
 	RESULT_VALUE_ZERO int32 = 0
@@ -36,11 +36,11 @@ const (
 	RESULT_DESCRIPTION_EMPTY string = ""
 )
 
-func (tac TestArticleConst) Id() int32 {
+func (tac ExampleArticleConst) Id() int32 {
 	return int32(tac)
 }
 
-func (tac TestArticleConst) String() string {
+func (tac ExampleArticleConst) String() string {
 	switch tac {
 	case ARTICLE_TIMESHT_WORKING:
 		return "ARTICLE_TIMESHT_WORKING"
@@ -72,11 +72,11 @@ func (tac TestArticleConst) String() string {
 	return "ARTICLE_UNKNOWN"
 }
 
-func (tcc TestConceptConst) Id() int32 {
+func (tcc ExampleConceptConst) Id() int32 {
 	return int32(tcc)
 }
 
-func (tcc TestConceptConst) String() string {
+func (tcc ExampleConceptConst) String() string {
 	switch tcc {
 	case CONCEPT_TIMESHT_WORKING:
 		return "CONCEPT_TIMESHT_WORKING"

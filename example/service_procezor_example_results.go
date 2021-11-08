@@ -3,133 +3,133 @@ package example
 import procezor "github.com/mzdyhrave/procezorgo"
 
 type TimeshtWorkingResult struct {
-	TestTermResult
+	ExampleTermResult
 }
 
 func NewTimeshtWorkingResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &TimeshtWorkingResult{TestTermResult: NewTestTermResult(target, value, basis, descr)}
+	return &TimeshtWorkingResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
 }
 
 func NewEmptyTimeshtWorkingResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &TimeshtWorkingResult{TestTermResult: NewTestTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+	return &TimeshtWorkingResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
 }
 
 type AmountBasisResult struct {
-	TestTermResult
+	ExampleTermResult
 }
 
 func NewAmountBasisResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &AmountBasisResult{TestTermResult: NewTestTermResult(target, value, basis, descr)}
+	return &AmountBasisResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
 }
 
 func NewEmptyAmountBasisResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &AmountBasisResult{TestTermResult: NewTestTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+	return &AmountBasisResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
 }
 
 type AmountFixedResult struct {
-	TestTermResult
+	ExampleTermResult
 }
 
 func NewAmountFixedResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &AmountFixedResult{TestTermResult: NewTestTermResult(target, value, basis, descr)}
+	return &AmountFixedResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
 }
 
 func NewEmptyAmountFixedResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &AmountFixedResult{TestTermResult: NewTestTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+	return &AmountFixedResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
 }
 
 type HealthInsbaseResult struct {
-	TestTermResult
+	ExampleTermResult
 }
 
 func NewHealthInsbaseResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &HealthInsbaseResult{TestTermResult: NewTestTermResult(target, value, basis, descr)}
+	return &HealthInsbaseResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
 }
 
 func NewEmptyHealthInsbaseResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &HealthInsbaseResult{TestTermResult: NewTestTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+	return &HealthInsbaseResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
 }
 
 type SocialInsbaseResult struct {
-	TestTermResult
+	ExampleTermResult
 }
 
 func NewSocialInsbaseResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &SocialInsbaseResult{TestTermResult: NewTestTermResult(target, value, basis, descr)}
+	return &SocialInsbaseResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
 }
 
 func NewEmptySocialInsbaseResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &SocialInsbaseResult{TestTermResult: NewTestTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+	return &SocialInsbaseResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
 }
 
 type TaxingAdvbaseResult struct {
-	TestTermResult
+	ExampleTermResult
 }
 
 func NewTaxingAdvbaseResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &TaxingAdvbaseResult{TestTermResult: NewTestTermResult(target, value, basis, descr)}
+	return &TaxingAdvbaseResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
 }
 
 func NewEmptyTaxingAdvbaseResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &TaxingAdvbaseResult{TestTermResult: NewTestTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+	return &TaxingAdvbaseResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
 }
 
 type HealthInspaymResult struct {
-	TestTermResult
+	ExampleTermResult
 }
 
 func NewHealthInspaymResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &HealthInspaymResult{TestTermResult: NewTestTermResult(target, value, basis, descr)}
+	return &HealthInspaymResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
 }
 
 func NewEmptyHealthInspaymResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &HealthInspaymResult{TestTermResult: NewTestTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+	return &HealthInspaymResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
 }
 
 type SocialInspaymResult struct {
-	TestTermResult
+	ExampleTermResult
 }
 
 func NewSocialInspaymResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &SocialInspaymResult{TestTermResult: NewTestTermResult(target, value, basis, descr)}
+	return &SocialInspaymResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
 }
 
 func NewEmptySocialInspaymResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &SocialInspaymResult{TestTermResult: NewTestTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+	return &SocialInspaymResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
 }
 
 type TaxingAdvpaymResult struct {
-	TestTermResult
+	ExampleTermResult
 }
 
 func NewTaxingAdvpaymResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &TaxingAdvpaymResult{TestTermResult: NewTestTermResult(target, value, basis, descr)}
+	return &TaxingAdvpaymResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
 }
 
 func NewEmptyTaxingAdvpaymResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &TaxingAdvpaymResult{TestTermResult: NewTestTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+	return &TaxingAdvpaymResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
 }
 
 type IncomeGrossResult struct {
-	TestTermResult
+	ExampleTermResult
 }
 
 func NewIncomeGrossResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &IncomeGrossResult{TestTermResult: NewTestTermResult(target, value, basis, descr)}
+	return &IncomeGrossResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
 }
 
 func NewEmptyIncomeGrossResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &IncomeGrossResult{TestTermResult: NewTestTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+	return &IncomeGrossResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
 }
 
 type IncomeNettoResult struct {
-	TestTermResult
+	ExampleTermResult
 }
 
 func NewIncomeNettoResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &IncomeNettoResult{TestTermResult: NewTestTermResult(target, value, basis, descr)}
+	return &IncomeNettoResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
 }
 
 func NewEmptyIncomeNettoResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &IncomeNettoResult{TestTermResult: NewTestTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+	return &IncomeNettoResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
 }

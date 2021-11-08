@@ -12,7 +12,7 @@ func TestServiceProcezorExampleWithSalaryHomeOffice(t *testing.T) {
 	var testPeriod = legalios.NewPeriodWithYearMonth(2021, 1)
 	var testVersion = types.GetVersionCode(TEST_VERSION)
 
-	var service procezor.IProcezorService = NewTestService()
+	var service procezor.IProcezorService = NewExampleService()
 
 	var gotVersion = service.Version().Value()
 	var expVersion int32 = 100

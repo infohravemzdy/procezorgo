@@ -44,13 +44,13 @@ func NewPaymentSalaryArtSpec(code int32) procezor.IArticleSpec {
 	const (
 		CONCEPT_CODE = CONCEPT_AMOUNT_BASIS
 	)
-	return &PaymentSalaryArtSpec{ArticleSpec: procezor.NewArticleSumSpec(code, CONCEPT_CODE.Id(),
-		procezor.ArticleCodeList{
-			procezor.GetArticleCode(ARTICLE_INCOME_GROSS.Id()),
-			procezor.GetArticleCode(ARTICLE_HEALTH_INSBASE.Id()),
-			procezor.GetArticleCode(ARTICLE_SOCIAL_INSBASE.Id()),
-			procezor.GetArticleCode(ARTICLE_TAXING_ADVBASE.Id()),
-		})}
+	_sums := []int32{
+		ARTICLE_INCOME_GROSS.Id(),
+		ARTICLE_HEALTH_INSBASE.Id(),
+		ARTICLE_SOCIAL_INSBASE.Id(),
+		ARTICLE_TAXING_ADVBASE.Id(),
+	}
+	return &PaymentSalaryArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, CONCEPT_CODE.Id(), _sums)}
 }
 
 func NewPaymentSalaryArtProv() procezor.IArticleSpecProvider {
@@ -76,13 +76,13 @@ func NewPaymentBonusArtSpec(code int32) procezor.IArticleSpec {
 	const (
 		CONCEPT_CODE = CONCEPT_AMOUNT_FIXED
 	)
-	return &PaymentBonusArtSpec{ArticleSpec: procezor.NewArticleSumSpec(code, CONCEPT_CODE.Id(),
-		procezor.ArticleCodeList{
-			procezor.GetArticleCode(ARTICLE_INCOME_GROSS.Id()),
-			procezor.GetArticleCode(ARTICLE_HEALTH_INSBASE.Id()),
-			procezor.GetArticleCode(ARTICLE_SOCIAL_INSBASE.Id()),
-			procezor.GetArticleCode(ARTICLE_TAXING_ADVBASE.Id()),
-		})}
+	_sums := []int32{
+		ARTICLE_INCOME_GROSS.Id(),
+		ARTICLE_HEALTH_INSBASE.Id(),
+		ARTICLE_SOCIAL_INSBASE.Id(),
+		ARTICLE_TAXING_ADVBASE.Id(),
+	}
+	return &PaymentBonusArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, CONCEPT_CODE.Id(), _sums)}
 }
 
 func NewPaymentBonusArtProv() procezor.IArticleSpecProvider {
@@ -108,12 +108,12 @@ func NewPaymentBarterArtSpec(code int32) procezor.IArticleSpec {
 	const (
 		CONCEPT_CODE = CONCEPT_AMOUNT_FIXED
 	)
-	return &PaymentBarterArtSpec{ArticleSpec: procezor.NewArticleSumSpec(code, CONCEPT_CODE.Id(),
-		procezor.ArticleCodeList{
-			procezor.GetArticleCode(ARTICLE_HEALTH_INSBASE.Id()),
-			procezor.GetArticleCode(ARTICLE_SOCIAL_INSBASE.Id()),
-			procezor.GetArticleCode(ARTICLE_TAXING_ADVBASE.Id()),
-		})}
+	_sums := []int32{
+		ARTICLE_HEALTH_INSBASE.Id(),
+		ARTICLE_SOCIAL_INSBASE.Id(),
+		ARTICLE_TAXING_ADVBASE.Id(),
+	}
+	return &PaymentBarterArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, CONCEPT_CODE.Id(), _sums)}
 }
 
 func NewPaymentBarterArtProv() procezor.IArticleSpecProvider {
@@ -139,10 +139,10 @@ func NewAllowceHofficeArtSpec(code int32) procezor.IArticleSpec {
 	const (
 		CONCEPT_CODE = CONCEPT_AMOUNT_FIXED
 	)
-	return &AllowceHofficeArtSpec{ArticleSpec: procezor.NewArticleSumSpec(code, CONCEPT_CODE.Id(),
-		procezor.ArticleCodeList{
-			procezor.GetArticleCode(ARTICLE_INCOME_NETTO.Id()),
-		})}
+	_sums := []int32{
+		ARTICLE_INCOME_NETTO.Id(),
+	}
+	return &AllowceHofficeArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, CONCEPT_CODE.Id(), _sums)}
 }
 
 func NewAllowceHofficeArtProv() procezor.IArticleSpecProvider {

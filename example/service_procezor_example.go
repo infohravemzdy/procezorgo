@@ -8,64 +8,72 @@ import (
 
 const TEST_VERSION int32 = 100
 
-type TestConceptSpec struct {
+type ExampleConceptSpec struct {
 	procezor.ConceptSpec
 }
 
-func NewTestConceptSpec(code int32) TestConceptSpec {
-	return TestConceptSpec{procezor.NewConceptSpec(code)}
+func NewExampleConceptSpec(code int32) ExampleConceptSpec {
+	return ExampleConceptSpec{procezor.NewConceptSpec(code)}
 }
 
-func NewTestConceptPathSpec(code int32, path []procezor.ArticleCode) TestConceptSpec {
-	return TestConceptSpec{ procezor.NewConceptPathSpec(code, path)}
+func NewExampleConceptPathSpec(code int32, path []procezor.ArticleCode) ExampleConceptSpec {
+	return ExampleConceptSpec{procezor.NewConceptPathSpec(code, path)}
 }
 
-func NewTestConceptFuncSpec(code int32, resultFunc procezor.ResultFunc) TestConceptSpec {
-	return TestConceptSpec{procezor.NewConceptFuncSpec(code, resultFunc)}
+func NewExampleConceptPathIntSpec(code int32, path []int32) ExampleConceptSpec {
+	return ExampleConceptSpec{procezor.NewConceptPathIntSpec(code, path)}
 }
 
-func NewTestConceptPathFuncSpec(code int32, path []procezor.ArticleCode, resultFunc procezor.ResultFunc) TestConceptSpec {
-	return TestConceptSpec{procezor.NewConceptPathFuncSpec(code, path, resultFunc)}
+func NewExampleConceptFuncSpec(code int32, resultFunc procezor.ResultFunc) ExampleConceptSpec {
+	return ExampleConceptSpec{procezor.NewConceptFuncSpec(code, resultFunc)}
 }
 
-type TestTermTarget struct {
+func NewExampleConceptPathFuncSpec(code int32, path []procezor.ArticleCode, resultFunc procezor.ResultFunc) ExampleConceptSpec {
+	return ExampleConceptSpec{procezor.NewConceptPathFuncSpec(code, path, resultFunc)}
+}
+
+func NewExampleConceptPathIntFuncSpec(code int32, path []int32, resultFunc procezor.ResultFunc) ExampleConceptSpec {
+	return ExampleConceptSpec{procezor.NewConceptPathIntFuncSpec(code, path, resultFunc)}
+}
+
+type ExampleTermTarget struct {
 	procezor.TermTarget
 }
 
-func (t TestTermTarget) ArticleDescr() string {
-	return TestArticleConst(t.Article().Value()).String()
+func (t ExampleTermTarget) ArticleDescr() string {
+	return ExampleArticleConst(t.Article().Value()).String()
 }
 
-func (t TestTermTarget) ConceptDescr() string {
-	return TestConceptConst(t.Concept().Value()).String()
+func (t ExampleTermTarget) ConceptDescr() string {
+	return ExampleConceptConst(t.Concept().Value()).String()
 }
 
-func NewTestTermTarget(mont types.MonthCode, cont types.ContractCode, post types.PositionCode, vars types.VariantCode, code types.ArticleCode, role types.ConceptCode) TestTermTarget {
-	return TestTermTarget{ TermTarget: procezor.NewTermTarget(mont, cont, post, vars, code, role) }
+func NewExampleTermTarget(mont types.MonthCode, cont types.ContractCode, post types.PositionCode, vars types.VariantCode, code types.ArticleCode, role types.ConceptCode) ExampleTermTarget {
+	return ExampleTermTarget{ TermTarget: procezor.NewTermTarget(mont, cont, post, vars, code, role) }
 }
 
-type TestTermResult struct {
+type ExampleTermResult struct {
 	procezor.TermResult
 }
 
-func (t TestTermResult) ArticleDescr() string {
-	return TestArticleConst(t.Article().Value()).String()
+func (t ExampleTermResult) ArticleDescr() string {
+	return ExampleArticleConst(t.Article().Value()).String()
 }
 
-func (t TestTermResult) ConceptDescr() string {
-	return TestConceptConst(t.Concept().Value()).String()
+func (t ExampleTermResult) ConceptDescr() string {
+	return ExampleConceptConst(t.Concept().Value()).String()
 }
 
 
-func NewTestTermResult(target procezor.ITermTarget, value int32, basis int32, descr string) TestTermResult {
-	return TestTermResult{ TermResult: procezor.NewTermResult(target, value, basis, descr) }
+func NewExampleTermResult(target procezor.ITermTarget, value int32, basis int32, descr string) ExampleTermResult {
+	return ExampleTermResult{ TermResult: procezor.NewTermResult(target, value, basis, descr) }
 }
 
-type TestArticleFactory struct {
+type ExampleArticleFactory struct {
 	procezor.IArticleSpecFactory
 }
 
-func NewTestArticleFactory() procezor.IArticleSpecFactory{
+func NewExampleArticleFactory() procezor.IArticleSpecFactory{
 	providersConfig := []procezor.ProviderRecord {
 		procezor.NewProviderRecord(ARTICLE_TIMESHT_WORKING.Id(), CONCEPT_TIMESHT_WORKING.Id(),
 			[]int32{}),
@@ -110,15 +118,15 @@ func NewTestArticleFactory() procezor.IArticleSpecFactory{
 		procezor.NewProviderRecord(ARTICLE_INCOME_NETTO.Id(), CONCEPT_INCOME_NETTO.Id(),
 			[]int32{}),
 	}
-	return TestArticleFactory{procezor.NewArticleSpecFactoryWithRecords(providersConfig)}
+	return ExampleArticleFactory{procezor.NewArticleSpecFactoryWithRecords(providersConfig)}
 }
 
-type TestConceptFactory struct {
+type ExampleConceptFactory struct {
 	procezor.IConceptSpecFactory
 }
 
-func NewTestConceptFactory() procezor.IConceptSpecFactory {
-	return TestConceptFactory{procezor.NewConceptSpecFactoryWithProviders(
+func NewExampleConceptFactory() procezor.IConceptSpecFactory {
+	return ExampleConceptFactory{procezor.NewConceptSpecFactoryWithProviders(
 		map[int32]procezor.IConceptSpecProvider {
 			CONCEPT_TIMESHT_WORKING.Id(): NewTimeshtWorkingConProv(),
 			CONCEPT_AMOUNT_BASIS.Id(): NewAmountBasisConProv(),
@@ -135,12 +143,12 @@ func NewTestConceptFactory() procezor.IConceptSpecFactory {
 	}
 }
 
-type TestServiceBuilder struct {
+type ExampleServiceBuilder struct {
 
 }
 
-func (t TestServiceBuilder) BuildArticleFactory(s *procezor.ProcezorService) bool {
-	s.ArticleFactory = NewTestArticleFactory()
+func (t ExampleServiceBuilder) BuildArticleFactory(s *procezor.ProcezorService) bool {
+	s.ArticleFactory = NewExampleArticleFactory()
 	if s.ArticleFactory == nil {
 		return false
 	}
@@ -148,8 +156,8 @@ func (t TestServiceBuilder) BuildArticleFactory(s *procezor.ProcezorService) boo
 	return true
 }
 
-func (t TestServiceBuilder) BuildConceptFactory(s *procezor.ProcezorService) bool {
-	s.ConceptFactory = NewTestConceptFactory()
+func (t ExampleServiceBuilder) BuildConceptFactory(s *procezor.ProcezorService) bool {
+	s.ConceptFactory = NewExampleConceptFactory()
 	if s.ConceptFactory == nil {
 		return false
 	}
@@ -157,15 +165,15 @@ func (t TestServiceBuilder) BuildConceptFactory(s *procezor.ProcezorService) boo
 	return true
 }
 
-type TestService struct {
+type ExampleService struct {
 	procezor.IProcezorService
 }
 
-func NewTestServiceBuilder() procezor.IProcezorFactoryBuilder {
-	return &TestServiceBuilder{}
+func NewExampleServiceBuilder() procezor.IProcezorFactoryBuilder {
+	return &ExampleServiceBuilder{}
 }
 
-func NewTestService() procezor.IProcezorService{
+func NewExampleService() procezor.IProcezorService{
 	const (
 		TestVersion      = TEST_VERSION
 		TestFinalArticle = ARTICLE_INCOME_NETTO
@@ -175,8 +183,8 @@ func NewTestService() procezor.IProcezorService{
 		TestFinalDefs = procezor.GetArticleDefine(TestFinalArticle.Id(), TestFinalConcept.Id())
 	)
 
-	return &TestService{
-		procezor.NewProcezorService(TestVersion, TestFinalDefs, NewTestServiceBuilder()),
+	return &ExampleService{
+		procezor.NewProcezorService(TestVersion, TestFinalDefs, NewExampleServiceBuilder()),
 	}
 }
 

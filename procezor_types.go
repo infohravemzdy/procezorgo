@@ -119,6 +119,10 @@ func NewArticleSumSpec(code int32, role int32, sums []types.ArticleCode) Article
 	return providers.NewArticleSumSpec(code, role, sums)
 }
 
+func NewArticleSumIntSpec(code int32, role int32, sums []int32) ArticleSpec {
+	return providers.NewArticleSumIntSpec(code, role, sums)
+}
+
 func NewArticleCodeProvider(code int32) IArticleCodeProvider {
 	return providers.NewArticleCodeProvider(code)
 }
@@ -142,12 +146,20 @@ func NewConceptPathSpec(code int32, path []types.ArticleCode) ConceptSpec {
 	return providers.NewConceptPathSpec(code, path)
 }
 
+func NewConceptPathIntSpec(code int32, path []int32) ConceptSpec {
+	return providers.NewConceptPathIntSpec(code, path)
+}
+
 func NewConceptFuncSpec(code int32, resultFunc providers.ResultFunc) ConceptSpec {
 	return providers.NewConceptFuncSpec(code, resultFunc)
 }
 
 func NewConceptPathFuncSpec(code int32, path []types.ArticleCode, resultFunc providers.ResultFunc) ConceptSpec {
 	return providers.NewConceptPathFuncSpec(code, path, resultFunc)
+}
+
+func NewConceptPathIntFuncSpec(code int32, path []int32, resultFunc providers.ResultFunc) ConceptSpec {
+	return providers.NewConceptPathIntFuncSpec(code, path, resultFunc)
 }
 
 func NewConceptCodeProvider(code int32) IConceptCodeProvider {
