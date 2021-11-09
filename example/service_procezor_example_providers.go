@@ -23,9 +23,8 @@ type TimeshtWorkingConSpec struct {
 }
 
 func NewTimeshtWorkingConSpec(role int32) procezor.IConceptSpec {
-	var _path []int32
 	return &TimeshtWorkingConSpec{
-		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, TimeshtWorkingConceptEval) }
+		ExampleConceptSpec: NewExampleConceptFuncSpec(role, TimeshtWorkingConceptEval)}
 }
 
 func TimeshtWorkingConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
@@ -57,7 +56,7 @@ func NewAmountBasisConSpec(role int32) procezor.IConceptSpec {
 		ARTICLE_TIMESHT_WORKING.Id(),
 	}
 	return &AmountBasisConSpec{
-		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, AmountBasisConceptEval) }
+		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, AmountBasisConceptEval)}
 }
 
 func AmountBasisConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
@@ -85,9 +84,8 @@ type AmountFixedConSpec struct {
 }
 
 func NewAmountFixedConSpec(role int32) procezor.IConceptSpec {
-	var _path []int32
 	return &AmountFixedConSpec{
-		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, AmountFixedConceptEval) }
+		ExampleConceptSpec: NewExampleConceptFuncSpec(role, AmountFixedConceptEval)}
 }
 
 func AmountFixedConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
@@ -115,9 +113,8 @@ type HealthInsbaseConSpec struct {
 }
 
 func NewHealthInsbaseConSpec(role int32) procezor.IConceptSpec {
-	var _path []int32
 	return &HealthInsbaseConSpec{
-		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, HealthInsbaseConceptEval) }
+		ExampleConceptSpec: NewExampleConceptFuncSpec(role, HealthInsbaseConceptEval)}
 }
 
 func HealthInsbaseConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
@@ -145,9 +142,8 @@ type SocialInsbaseConSpec struct {
 }
 
 func NewSocialInsbaseConSpec(role int32) procezor.IConceptSpec {
-	var _path []int32
 	return &SocialInsbaseConSpec{
-		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, SocialInsbaseConceptEval) }
+		ExampleConceptSpec: NewExampleConceptFuncSpec(role, SocialInsbaseConceptEval)}
 }
 
 func SocialInsbaseConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
@@ -179,7 +175,7 @@ func NewHealthInspaymConSpec(role int32) procezor.IConceptSpec {
 		ARTICLE_HEALTH_INSBASE.Id(),
 	}
 	return &HealthInspaymConSpec{
-		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, HealthInspaymConceptEval) }
+		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, HealthInspaymConceptEval)}
 }
 
 func HealthInspaymConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
@@ -211,7 +207,7 @@ func NewSocialInspaymConSpec(role int32) procezor.IConceptSpec {
 		ARTICLE_SOCIAL_INSBASE.Id(),
 	}
 	return &SocialInspaymConSpec{
-		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, SocialInspaymConceptEval) }
+		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, SocialInspaymConceptEval)}
 }
 
 func SocialInspaymConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
@@ -239,9 +235,8 @@ type TaxingAdvbaseConSpec struct {
 }
 
 func NewTaxingAdvbaseConSpec(role int32) procezor.IConceptSpec {
-	var _path []int32
 	return &TaxingAdvbaseConSpec{
-		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, TaxingAdvbaseConceptEval) }
+		ExampleConceptSpec: NewExampleConceptFuncSpec(role, TaxingAdvbaseConceptEval)}
 }
 
 func TaxingAdvbaseConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
@@ -273,7 +268,7 @@ func NewTaxingAdvpaymConSpec(role int32) procezor.IConceptSpec {
 		ARTICLE_TAXING_ADVBASE.Id(),
 	}
 	return &TaxingAdvpaymConSpec{
-		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, TaxingAdvpaymConceptEval) }
+		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, TaxingAdvpaymConceptEval)}
 }
 
 func TaxingAdvpaymConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
@@ -301,9 +296,8 @@ type IncomeGrossConSpec struct {
 }
 
 func NewIncomeGrossConSpec(role int32) procezor.IConceptSpec {
-	var _path []int32
 	return &IncomeGrossConSpec{
-		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, IncomeGrossConceptEval) }
+		ExampleConceptSpec: NewExampleConceptFuncSpec(role, IncomeGrossConceptEval)}
 }
 
 func IncomeGrossConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
@@ -338,7 +332,7 @@ func NewIncomeNettoConSpec(role int32) procezor.IConceptSpec {
 		ARTICLE_TAXING_ADVPAYM.Id(),
 	}
 	return &IncomeNettoConSpec{
-		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, IncomeNettoConceptEval) }
+		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, IncomeNettoConceptEval)}
 }
 
 func IncomeNettoConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {

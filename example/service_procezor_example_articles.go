@@ -23,8 +23,7 @@ type TimeshtWorkingArtSpec struct {
 func NewTimeshtWorkingArtSpec(code int32) procezor.IArticleSpec {
 	ConceptCode := CONCEPT_TIMESHT_WORKING.Id()
 
-	var _sums []int32
-	return &TimeshtWorkingArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
+	return &TimeshtWorkingArtSpec{ArticleSpec: procezor.NewArticleSpec(code, ConceptCode)}
 }
 
 type PaymentSalaryArtProv struct {
@@ -164,8 +163,7 @@ type HealthInsbaseArtSpec struct {
 func NewHealthInsbaseArtSpec(code int32) procezor.IArticleSpec {
 	ConceptCode := CONCEPT_HEALTH_INSBASE.Id()
 
-	var _sums []int32
-	return &HealthInsbaseArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
+	return &HealthInsbaseArtSpec{ArticleSpec: procezor.NewArticleSpec(code, ConceptCode)}
 }
 
 type SocialInsbaseArtProv struct {
@@ -189,8 +187,7 @@ type SocialInsbaseArtSpec struct {
 func NewSocialInsbaseArtSpec(code int32) procezor.IArticleSpec {
 	ConceptCode := CONCEPT_SOCIAL_INSBASE.Id()
 
-	var _sums []int32
-	return &SocialInsbaseArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
+	return &SocialInsbaseArtSpec{ArticleSpec: procezor.NewArticleSpec(code, ConceptCode)}
 }
 
 type HealthInspaymArtProv struct {
@@ -214,8 +211,7 @@ type HealthInspaymArtSpec struct {
 func NewHealthInspaymArtSpec(code int32) procezor.IArticleSpec {
 	ConceptCode := CONCEPT_HEALTH_INSPAYM.Id()
 
-	var _sums []int32
-	return &HealthInspaymArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
+	return &HealthInspaymArtSpec{ArticleSpec: procezor.NewArticleSpec(code, ConceptCode)}
 }
 
 type SocialInspaymArtProv struct {
@@ -239,8 +235,7 @@ type SocialInspaymArtSpec struct {
 func NewSocialInspaymArtSpec(code int32) procezor.IArticleSpec {
 	ConceptCode := CONCEPT_SOCIAL_INSPAYM.Id()
 
-	var _sums []int32
-	return &SocialInspaymArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
+	return &SocialInspaymArtSpec{ArticleSpec: procezor.NewArticleSpec(code, ConceptCode)}
 }
 
 type TaxingAdvbaseArtProv struct {
@@ -264,8 +259,7 @@ type TaxingAdvbaseArtSpec struct {
 func NewTaxingAdvbaseArtSpec(code int32) procezor.IArticleSpec {
 	ConceptCode := CONCEPT_TAXING_ADVBASE.Id()
 
-	var _sums []int32
-	return &TaxingAdvbaseArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
+	return &TaxingAdvbaseArtSpec{ArticleSpec: procezor.NewArticleSpec(code, ConceptCode)}
 }
 
 type TaxingAdvpaymArtProv struct {
@@ -289,8 +283,7 @@ type TaxingAdvpaymArtSpec struct {
 func NewTaxingAdvpaymArtSpec(code int32) procezor.IArticleSpec {
 	ConceptCode := CONCEPT_TAXING_ADVPAYM.Id()
 
-	var _sums []int32
-	return &TaxingAdvpaymArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
+	return &TaxingAdvpaymArtSpec{ArticleSpec: procezor.NewArticleSpec(code, ConceptCode)}
 }
 
 type IncomeGrossArtProv struct {
@@ -314,8 +307,7 @@ type IncomeGrossArtSpec struct {
 func NewIncomeGrossArtSpec(code int32) procezor.IArticleSpec {
 	ConceptCode := CONCEPT_INCOME_GROSS.Id()
 
-	var _sums []int32
-	return &IncomeGrossArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
+	return &IncomeGrossArtSpec{ArticleSpec: procezor.NewArticleSpec(code, ConceptCode)}
 }
 
 type IncomeNettoArtProv struct {
@@ -339,7 +331,6 @@ type IncomeNettoArtSpec struct {
 func NewIncomeNettoArtSpec(code int32) procezor.IArticleSpec {
 	ConceptCode := CONCEPT_INCOME_NETTO.Id()
 
-	var _sums []int32
-	return &IncomeNettoArtSpec{ArticleSpec: procezor.NewArticleSumIntSpec(code, ConceptCode, _sums)}
+	return &IncomeNettoArtSpec{ArticleSpec: procezor.NewArticleSpec(code, ConceptCode)}
 }
 
