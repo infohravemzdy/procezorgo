@@ -179,7 +179,7 @@ func NewNoImplementationError( period legalios.IPeriod, target types.ITermTarget
 		err: errors.New("failed with no-implementation") }
 }
 
-func NewInvalidResultError( period legalios.IPeriod, target types.ITermTarget, typeDesr string) types.ITermResultError {
+func NewInvalidResultError( period legalios.IPeriod, target types.ITermTarget, typeDescr string) types.ITermResultError {
 	_contract := types.NewContractCode()
 	_position := types.NewPositionCode()
 	_article  := types.NewArticleCode()
@@ -199,10 +199,10 @@ func NewInvalidResultError( period legalios.IPeriod, target types.ITermTarget, t
 		article: _article,
 		concept: _concept,
 		variant: _variant,
-		err: errors.New(fmt.Sprintf("invalid result type %s error!", typeDesr)) }
+		err: errors.New(fmt.Sprintf("invalid result type %s error!", typeDescr)) }
 }
 
-func NewInvalidRulesetError( period legalios.IPeriod, target types.ITermTarget, typeDesr string) types.ITermResultError {
+func NewInvalidRulesetError( period legalios.IPeriod, target types.ITermTarget, typeDescr string) types.ITermResultError {
 	_contract := types.NewContractCode()
 	_position := types.NewPositionCode()
 	_article  := types.NewArticleCode()
@@ -225,7 +225,7 @@ func NewInvalidRulesetError( period legalios.IPeriod, target types.ITermTarget, 
 		err: errors.New("no implementation") }
 }
 
-func NewInvalidTargetError( period legalios.IPeriod, target types.ITermTarget, typeDesr string) types.ITermResultError {
+func NewInvalidTargetError( period legalios.IPeriod, target types.ITermTarget, typeDescr string) types.ITermResultError {
 	_contract := types.NewContractCode()
 	_position := types.NewPositionCode()
 	_article  := types.NewArticleCode()
@@ -249,7 +249,7 @@ func NewInvalidTargetError( period legalios.IPeriod, target types.ITermTarget, t
 }
 
 func NewNoResultFoundError( period legalios.IPeriod, target types.ITermTarget,
-	articleDesr string, contract types.ContractCode, position types.PositionCode) types.ITermResultError {
+	articleDescr string, contract types.ContractCode, position types.PositionCode) types.ITermResultError {
 	_contract := types.NewContractCode()
 	_position := types.NewPositionCode()
 	_article  := types.NewArticleCode()
@@ -269,11 +269,11 @@ func NewNoResultFoundError( period legalios.IPeriod, target types.ITermTarget,
 		article: _article,
 		concept: _concept,
 		variant: _variant,
-		err: errors.New(fmt.Sprintf("result for %s%sNot Found!", articleDesr, messageContractPosition(contract, position))) }
+		err: errors.New(fmt.Sprintf("result for %s%sNot Found!", articleDescr, messageContractPosition(contract, position))) }
 }
 
 func NewNullResultFoundError( period legalios.IPeriod, target types.ITermTarget,
-	articleDesr string, contract types.ContractCode, position types.PositionCode) types.ITermResultError {
+	articleDescr string, contract types.ContractCode, position types.PositionCode) types.ITermResultError {
 	_contract := types.NewContractCode()
 	_position := types.NewPositionCode()
 	_article  := types.NewArticleCode()
@@ -294,7 +294,7 @@ func NewNullResultFoundError( period legalios.IPeriod, target types.ITermTarget,
 
 		concept: _concept,
 		variant: _variant,
-		err: errors.New(fmt.Sprintf("result found for %s%s but Instance is Null!", articleDesr, messageContractPosition(contract, position))) }
+		err: errors.New(fmt.Sprintf("result found for %s%s but Instance is Null!", articleDescr, messageContractPosition(contract, position))) }
 }
 
 func messageContractPosition(contract types.ContractCode, position types.PositionCode) string {
