@@ -18,7 +18,7 @@ func (v ArticleCode) IsZero() bool {
 	return v.value == articleZeroCode
 }
 
-func ArticleZero() ArticleCode {
+func ArticleCodeZero() ArticleCode {
 	return NewArticleCode()
 }
 

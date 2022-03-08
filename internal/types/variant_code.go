@@ -16,7 +16,7 @@ func (v VariantCode) IsZero() bool {
 	return v.value == variantZeroCode
 }
 
-func VariantZero() VariantCode {
+func VariantCodeZero() VariantCode {
 	return NewVariantCode()
 }
 

@@ -32,7 +32,7 @@ func (p ConceptSpecProvider) Code() types.ConceptCode {
 	return p.code
 }
 
-func EvalEmptyResultList(target types.ITermTarget, period legalios.IPeriod, ruleset legalios.IBundleProps, results IBuilderResultList) IBuilderResultList {
+func EvalEmptyResultList(target types.ITermTarget, spec types.IArticleSpec, period legalios.IPeriod, ruleset legalios.IBundleProps, results IBuilderResultList) IBuilderResultList {
 	return IBuilderResultList{}
 }
 

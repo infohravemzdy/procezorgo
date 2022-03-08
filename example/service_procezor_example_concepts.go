@@ -64,7 +64,7 @@ func (t ExampleTermResult) ConceptDescr() string {
 }
 
 
-func NewExampleTermResult(target procezor.ITermTarget, value int32, basis int32, descr string) ExampleTermResult {
-	return ExampleTermResult{ TermResult: procezor.NewTermResult(target, value, basis, descr) }
+func NewExampleTermResult(target procezor.ITermTarget, spec procezor.IArticleSpec) ExampleTermResult {
+	return ExampleTermResult{ TermResult: procezor.NewTermResult(target, spec) }
 }
 

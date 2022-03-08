@@ -7,73 +7,76 @@ import (
 )
 
 const (
-	articleNotfound int32 = 0
-	conceptNotfound int32 = 0
+	articleCodeNotfound int32 = 0
+	articleSeqsNotfound int16 = 0
+	conceptCodeNotfound int32 = 0
 )
 
 type IArticleSpecFactory interface {
-	GetSpec(code types.ArticleCode, period legalios.IPeriod, version types.VersionCode) providers.IArticleSpec
-	GetSpecList(period legalios.IPeriod, version types.VersionCode) []providers.IArticleSpec
+	GetSpec(code types.ArticleCode, period legalios.IPeriod, version types.VersionCode) types.IArticleSpec
+	GetSpecList(period legalios.IPeriod, version types.VersionCode) []types.IArticleSpec
 	GetProviders() []providers.IArticleSpecProvider
 	BuildFactory() bool
 }
 
-func NotFoundArticleSpec() providers.IArticleSpec {
-	ArticleCode := articleNotfound
-	ConceptCode := conceptNotfound
+func NotFoundArticleSpec() types.IArticleSpec {
+	ArticleCode := articleCodeNotfound
+	ArticleSeqs := articleSeqsNotfound
+	ConceptCode := conceptCodeNotfound
 
-	return providers.NewArticleSpec(ArticleCode, ConceptCode)
+	return types.NewArticleSpec(ArticleCode, ArticleSeqs, ConceptCode)
 }
 
 type NotFoundArticleProvider struct  {
 	providers.IArticleCodeProvider
 }
 
-func (p NotFoundArticleProvider) GetSpec(period legalios.IPeriod, version types.VersionCode) providers.IArticleSpec {
+func (p NotFoundArticleProvider) GetSpec(period legalios.IPeriod, version types.VersionCode) types.IArticleSpec {
 	return NotFoundArticleSpec()
 }
 
 func NewNotFoundArticleProvider() providers.IArticleSpecProvider {
-	return NotFoundArticleProvider{providers.NewArticleCodeProvider(articleNotfound) }
+	return NotFoundArticleProvider{providers.NewArticleCodeProvider(articleCodeNotfound) }
 }
 
 type BuildArticleProvidersFunc func (f *ArticleSpecFactory) bool
 
 type ProviderRecord struct {
 	Article int32
+	Sequens int16
 	Concept int32
 	Sums    []int32
 }
 
-func NewProviderRecord(_article int32, _concept int32, _sums []int32) ProviderRecord {
-	return ProviderRecord{Article: _article, Concept: _concept, Sums: _sums}
+func NewProviderRecord(_article int32, _sequens int16, _concept int32, _sums []int32) ProviderRecord {
+	return ProviderRecord{Article: _article, Sequens: _sequens, Concept: _concept, Sums: _sums}
 }
 
 type ArticleSpecConfig struct {
-	providers.ArticleSpec
+	types.ArticleSpec
 }
 
-func NewArticleSpecConfig(article int32, concept int32, sums []int32) providers.IArticleSpec {
-	return ArticleSpecConfig{providers.NewArticleSumSpec(article, concept, providers.ConstToSumsArray(sums))}
+func NewArticleSpecConfig(article int32, sequens int16, concept int32, sums []int32) types.IArticleSpec {
+	return ArticleSpecConfig{types.NewArticleSumSpec(article, sequens, concept, types.ConstToSumsArray(sums))}
 }
 
 type ArticleProviderConfig struct {
 	providers.ArticleSpecProvider
-	articleSpec providers.IArticleSpec
+	articleSpec types.IArticleSpec
 }
 
-func NewArticleProviderConfig(article int32, concept int32, sums []int32) providers.IArticleSpecProvider {
-	return ArticleProviderConfig{providers.NewArticleProvider(article), NewArticleSpecConfig(article, concept, sums)}
+func NewArticleProviderConfig(article int32, sequens int16, concept int32, sums []int32) providers.IArticleSpecProvider {
+	return ArticleProviderConfig{providers.NewArticleProvider(article), NewArticleSpecConfig(article, sequens, concept, sums)}
 }
 
-func (p ArticleProviderConfig) GetSpec(period legalios.IPeriod, version types.VersionCode) providers.IArticleSpec {
+func (p ArticleProviderConfig) GetSpec(period legalios.IPeriod, version types.VersionCode) types.IArticleSpec {
 	return p.articleSpec
 }
 
 type ArticleSpecFactory struct {
 	Providers          map[int32]providers.IArticleSpecProvider
 	NotFoundProvider   providers.IArticleSpecProvider
-	NotFoundSpec       providers.IArticleSpec
+	NotFoundSpec       types.IArticleSpec
 	BuildProvidersFunc BuildArticleProvidersFunc
 }
 
@@ -97,7 +100,7 @@ func (f ArticleSpecFactory) GetProviders() []providers.IArticleSpecProvider {
 	return articleProviders
 }
 
-func (f ArticleSpecFactory) GetSpec(code types.ArticleCode, period legalios.IPeriod, version types.VersionCode) providers.IArticleSpec {
+func (f ArticleSpecFactory) GetSpec(code types.ArticleCode, period legalios.IPeriod, version types.VersionCode) types.IArticleSpec {
 	provider := f.GetProvider(code, f.NotFoundProvider)
 	if provider == nil {
 		return f.NotFoundSpec
@@ -105,8 +108,8 @@ func (f ArticleSpecFactory) GetSpec(code types.ArticleCode, period legalios.IPer
 	return provider.GetSpec(period, version)
 }
 
-func (f ArticleSpecFactory) GetSpecList(period legalios.IPeriod, version types.VersionCode) []providers.IArticleSpec {
-	articleSpecs := make([]providers.IArticleSpec, 0, len(f.Providers))
+func (f ArticleSpecFactory) GetSpecList(period legalios.IPeriod, version types.VersionCode) []types.IArticleSpec {
+	articleSpecs := make([]types.IArticleSpec, 0, len(f.Providers))
 	for _, p := range f.Providers {
 		articleSpecs = append(articleSpecs, p.GetSpec(period, version))
 	}

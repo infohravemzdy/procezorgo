@@ -11,7 +11,7 @@ type IArticleCodeProvider interface {
 
 type IArticleSpecProvider interface {
 	IArticleCodeProvider
-	GetSpec(period legalios.IPeriod, version types.VersionCode) IArticleSpec
+	GetSpec(period legalios.IPeriod, version types.VersionCode) types.IArticleSpec
 }
 
 type ArticleSpecProvider struct {
@@ -26,27 +26,8 @@ func NewArticleProvider(code int32) ArticleSpecProvider {
 	return ArticleSpecProvider{ code: types.GetArticleCode(code) }
 }
 
-func NewArticleSpec(code int32, role int32) ArticleSpec {
-	return ArticleSpec{ code: types.GetArticleCode(code), role: types.GetConceptCode(role), sums: types.ArticleCodeList{} }
-}
-
-func NewArticleSumSpec(code int32, role int32, sums []types.ArticleCode) ArticleSpec {
-	return ArticleSpec{ code: types.GetArticleCode(code), role: types.GetConceptCode(role), sums: sums }
-}
-
-func NewArticleSumIntSpec(code int32, role int32, sums []int32) ArticleSpec {
-	return ArticleSpec{ code: types.GetArticleCode(code), role: types.GetConceptCode(role), sums: ConstToSumsArray(sums) }
-}
-
 func NewArticleCodeProvider(code int32) ArticleSpecProvider {
 	return ArticleSpecProvider{ code: types.GetArticleCode(code) }
 }
 
-func ConstToSumsArray(_sums []int32) []types.ArticleCode {
-	sumsArray := make([]types.ArticleCode, 0)
-	for _, r := range _sums {
-		sumsArray = append(sumsArray, types.GetArticleCode(r))
-	}
-	return sumsArray
-}
 

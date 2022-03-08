@@ -130,7 +130,7 @@ func NewEvalResultError(period legalios.IPeriod, target types.ITermTarget, inner
 		article: _article,
 		concept: _concept,
 		variant: _variant,
-		err: errors.New(errorText) }
+		err: errors.New("evaluation failed: " + errorText) }
 }
 
 func NewExtractResultError( period legalios.IPeriod, target types.ITermTarget, symbol types.ITermSymbol, inner types.ITermResultError, errorText string) types.ITermResultError {
@@ -153,7 +153,7 @@ func NewExtractResultError( period legalios.IPeriod, target types.ITermTarget, s
 		article: _article,
 		concept: _concept,
 		variant: _variant,
-		err: errors.New(errorText) }
+		err: errors.New("extract result failed " + errorText) }
 }
 
 func NewNoImplementationError( period legalios.IPeriod, target types.ITermTarget) types.ITermResultError {
@@ -176,6 +176,133 @@ func NewNoImplementationError( period legalios.IPeriod, target types.ITermTarget
 		article: _article,
 		concept: _concept,
 		variant: _variant,
+		err: errors.New("failed with no-implementation") }
+}
+
+func NewInvalidResultError( period legalios.IPeriod, target types.ITermTarget, typeDesr string) types.ITermResultError {
+	_contract := types.NewContractCode()
+	_position := types.NewPositionCode()
+	_article  := types.NewArticleCode()
+	_concept  := types.NewConceptCode()
+	_variant  := types.NewVariantCode()
+
+	if target != nil {
+		_contract = target.Contract()
+		_position = target.Position()
+		_article  = target.Article()
+		_concept  = target.Concept()
+		_variant  = target.Variant()
+	}
+	return termResultError{ period: period, target: target,
+		contract: _contract,
+		position: _position,
+		article: _article,
+		concept: _concept,
+		variant: _variant,
+		err: errors.New(fmt.Sprintf("invalid result type %s error!", typeDesr)) }
+}
+
+func NewInvalidRulesetError( period legalios.IPeriod, target types.ITermTarget, typeDesr string) types.ITermResultError {
+	_contract := types.NewContractCode()
+	_position := types.NewPositionCode()
+	_article  := types.NewArticleCode()
+	_concept  := types.NewConceptCode()
+	_variant  := types.NewVariantCode()
+
+	if target != nil {
+		_contract = target.Contract()
+		_position = target.Position()
+		_article  = target.Article()
+		_concept  = target.Concept()
+		_variant  = target.Variant()
+	}
+	return termResultError{ period: period, target: target,
+		contract: _contract,
+		position: _position,
+		article: _article,
+		concept: _concept,
+		variant: _variant,
 		err: errors.New("no implementation") }
 }
 
+func NewInvalidTargetError( period legalios.IPeriod, target types.ITermTarget, typeDesr string) types.ITermResultError {
+	_contract := types.NewContractCode()
+	_position := types.NewPositionCode()
+	_article  := types.NewArticleCode()
+	_concept  := types.NewConceptCode()
+	_variant  := types.NewVariantCode()
+
+	if target != nil {
+		_contract = target.Contract()
+		_position = target.Position()
+		_article  = target.Article()
+		_concept  = target.Concept()
+		_variant  = target.Variant()
+	}
+	return termResultError{ period: period, target: target,
+		contract: _contract,
+		position: _position,
+		article: _article,
+		concept: _concept,
+		variant: _variant,
+		err: errors.New("no implementation") }
+}
+
+func NewNoResultFoundError( period legalios.IPeriod, target types.ITermTarget,
+	articleDesr string, contract types.ContractCode, position types.PositionCode) types.ITermResultError {
+	_contract := types.NewContractCode()
+	_position := types.NewPositionCode()
+	_article  := types.NewArticleCode()
+	_concept  := types.NewConceptCode()
+	_variant  := types.NewVariantCode()
+
+	if target != nil {
+		_contract = target.Contract()
+		_position = target.Position()
+		_article  = target.Article()
+		_concept  = target.Concept()
+		_variant  = target.Variant()
+	}
+	return termResultError{ period: period, target: target,
+		contract: _contract,
+		position: _position,
+		article: _article,
+		concept: _concept,
+		variant: _variant,
+		err: errors.New(fmt.Sprintf("result for %s%sNot Found!", articleDesr, messageContractPosition(contract, position))) }
+}
+
+func NewNullResultFoundError( period legalios.IPeriod, target types.ITermTarget,
+	articleDesr string, contract types.ContractCode, position types.PositionCode) types.ITermResultError {
+	_contract := types.NewContractCode()
+	_position := types.NewPositionCode()
+	_article  := types.NewArticleCode()
+	_concept  := types.NewConceptCode()
+	_variant  := types.NewVariantCode()
+
+	if target != nil {
+		_contract = target.Contract()
+		_position = target.Position()
+		_article  = target.Article()
+		_concept  = target.Concept()
+		_variant  = target.Variant()
+	}
+	return termResultError{ period: period, target: target,
+		contract: _contract,
+		position: _position,
+		article: _article,
+
+		concept: _concept,
+		variant: _variant,
+		err: errors.New(fmt.Sprintf("result found for %s%s but Instance is Null!", articleDesr, messageContractPosition(contract, position))) }
+}
+
+func messageContractPosition(contract types.ContractCode, position types.PositionCode) string {
+	if !contract.IsZero() && !position.IsZero() {
+		return fmt.Sprintf(", contract=%d, position=%d", contract.Value(), position.Value())
+	}
+	if !contract.IsZero() {
+		return fmt.Sprintf(", contract=%d", contract)
+	}
+	return ""
+}

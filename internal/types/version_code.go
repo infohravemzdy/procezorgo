@@ -16,7 +16,7 @@ func (v VersionCode) IsZero() bool {
 	return v.value == versionZeroCode
 }
 
-func VersionZero() VersionCode {
+func VersionCodeZero() VersionCode {
 	return newVersionCode()
 }
 

@@ -14,12 +14,10 @@ type ITermSymbol interface {
 type ITermTarget interface {
 	ITermSymbol
 	Concept() ConceptCode
-	TarBasis() int32
-	Defs() IArticleDefine
 	ConceptDescr() string
 }
 
-type ITermTargetList []ITermTarget
+type ITermTargetList = []ITermTarget
 
 type TermSymbol struct {
 	contract ContractCode
@@ -56,15 +54,10 @@ func NewTermSymbol(mont MonthCode, cont ContractCode, post PositionCode, vars Va
 type TermTarget struct {
 	TermSymbol
 	concept  ConceptCode
-	tarBasis int32
 }
 
 func (t TermTarget) Concept() ConceptCode {
 	return t.concept
-}
-
-func (t TermTarget) Defs() IArticleDefine {
-	return GetArticleDefine(t.Article().Value(), t.Concept().Value())
 }
 
 func (t TermTarget) ArticleDescr() string {
@@ -75,11 +68,7 @@ func (t TermTarget) ConceptDescr() string {
 	return fmt.Sprintf("ConceptCode for: %v", t.concept.Value())
 }
 
-func (t TermTarget) TarBasis()  int32 {
-	return t.tarBasis
-}
-
 func NewTermTarget(mont MonthCode, cont ContractCode, post PositionCode, vars VariantCode, code ArticleCode, role ConceptCode) TermTarget {
-	return TermTarget{ TermSymbol: NewTermSymbol(mont, cont, post, vars, code ), concept: role, tarBasis: int32(0) }
+	return TermTarget{ TermSymbol: NewTermSymbol(mont, cont, post, vars, code ), concept: role }
 }
 

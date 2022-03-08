@@ -27,8 +27,8 @@ func NewTimeshtWorkingConSpec(role int32) procezor.IConceptSpec {
 		ExampleConceptSpec: NewExampleConceptFuncSpec(role, TimeshtWorkingConceptEval)}
 }
 
-func TimeshtWorkingConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
-	resultsValues := NewTimeshtWorkingResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
+func TimeshtWorkingConceptEval(target procezor.ITermTarget, spec procezor.IArticleSpec, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+	resultsValues := NewTimeshtWorkingResult(target, spec)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
@@ -59,8 +59,8 @@ func NewAmountBasisConSpec(role int32) procezor.IConceptSpec {
 		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, AmountBasisConceptEval)}
 }
 
-func AmountBasisConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
-	resultsValues := NewAmountBasisResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
+func AmountBasisConceptEval(target procezor.ITermTarget, spec procezor.IArticleSpec, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+	resultsValues := NewAmountBasisResult(target, spec)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
@@ -88,8 +88,8 @@ func NewAmountFixedConSpec(role int32) procezor.IConceptSpec {
 		ExampleConceptSpec: NewExampleConceptFuncSpec(role, AmountFixedConceptEval)}
 }
 
-func AmountFixedConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
-	resultsValues := NewAmountFixedResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
+func AmountFixedConceptEval(target procezor.ITermTarget, spec procezor.IArticleSpec, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+	resultsValues := NewAmountFixedResult(target, spec)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
@@ -117,8 +117,8 @@ func NewHealthInsbaseConSpec(role int32) procezor.IConceptSpec {
 		ExampleConceptSpec: NewExampleConceptFuncSpec(role, HealthInsbaseConceptEval)}
 }
 
-func HealthInsbaseConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
-	resultsValues := NewHealthInsbaseResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
+func HealthInsbaseConceptEval(target procezor.ITermTarget, spec procezor.IArticleSpec, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+	resultsValues := NewHealthInsbaseResult(target, spec)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
@@ -146,8 +146,8 @@ func NewSocialInsbaseConSpec(role int32) procezor.IConceptSpec {
 		ExampleConceptSpec: NewExampleConceptFuncSpec(role, SocialInsbaseConceptEval)}
 }
 
-func SocialInsbaseConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
-	resultsValues := NewSocialInsbaseResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
+func SocialInsbaseConceptEval(target procezor.ITermTarget, spec procezor.IArticleSpec, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+	resultsValues := NewSocialInsbaseResult(target, spec)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
@@ -178,8 +178,8 @@ func NewHealthInspaymConSpec(role int32) procezor.IConceptSpec {
 		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, HealthInspaymConceptEval)}
 }
 
-func HealthInspaymConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
-	resultsValues := NewHealthInspaymResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
+func HealthInspaymConceptEval(target procezor.ITermTarget, spec procezor.IArticleSpec, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+	resultsValues := NewHealthInspaymResult(target, spec)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
@@ -210,8 +210,8 @@ func NewSocialInspaymConSpec(role int32) procezor.IConceptSpec {
 		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, SocialInspaymConceptEval)}
 }
 
-func SocialInspaymConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
-	resultsValues := NewSocialInspaymResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
+func SocialInspaymConceptEval(target procezor.ITermTarget, spec procezor.IArticleSpec, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+	resultsValues := NewSocialInspaymResult(target, spec)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
@@ -239,8 +239,8 @@ func NewTaxingAdvbaseConSpec(role int32) procezor.IConceptSpec {
 		ExampleConceptSpec: NewExampleConceptFuncSpec(role, TaxingAdvbaseConceptEval)}
 }
 
-func TaxingAdvbaseConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
-	resultsValues := NewTaxingAdvbaseResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
+func TaxingAdvbaseConceptEval(target procezor.ITermTarget, spec procezor.IArticleSpec, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+	resultsValues := NewTaxingAdvbaseResult(target, spec)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
@@ -271,8 +271,8 @@ func NewTaxingAdvpaymConSpec(role int32) procezor.IConceptSpec {
 		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, TaxingAdvpaymConceptEval)}
 }
 
-func TaxingAdvpaymConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
-	resultsValues := NewTaxingAdvpaymResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
+func TaxingAdvpaymConceptEval(target procezor.ITermTarget, spec procezor.IArticleSpec, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+	resultsValues := NewTaxingAdvpaymResult(target, spec)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
@@ -300,8 +300,8 @@ func NewIncomeGrossConSpec(role int32) procezor.IConceptSpec {
 		ExampleConceptSpec: NewExampleConceptFuncSpec(role, IncomeGrossConceptEval)}
 }
 
-func IncomeGrossConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
-	resultsValues := NewIncomeGrossResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
+func IncomeGrossConceptEval(target procezor.ITermTarget, spec procezor.IArticleSpec, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+	resultsValues := NewIncomeGrossResult(target, spec)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }
@@ -335,8 +335,8 @@ func NewIncomeNettoConSpec(role int32) procezor.IConceptSpec {
 		ExampleConceptSpec: NewExampleConceptPathIntFuncSpec(role, _path, IncomeNettoConceptEval)}
 }
 
-func IncomeNettoConceptEval(target procezor.ITermTarget, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
-	resultsValues := NewIncomeNettoResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)
+func IncomeNettoConceptEval(target procezor.ITermTarget, spec procezor.IArticleSpec, period procezor.IPeriod, ruleset procezor.IBundleProps, results procezor.IBuilderResultList) procezor.IBuilderResultList {
+	resultsValues := NewIncomeNettoResult(target, spec)
 	successResult := procezor.NewSuccessResult(resultsValues, period)
 	return procezor.IBuilderResultList{successResult}
 }

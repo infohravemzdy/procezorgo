@@ -16,7 +16,7 @@ func (v MonthCode) IsZero() bool {
 	return v.value == monthZeroCode
 }
 
-func MonthZero() MonthCode {
+func MonthCodeZero() MonthCode {
 	return NewMonthCode()
 }
 

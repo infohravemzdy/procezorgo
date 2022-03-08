@@ -11,18 +11,19 @@ type pathCodeList struct {
 	list []types.IArticleDefine
 }
 
-type pathCodeMap map[types.ArticleCode]pathCodeList
+type OrderCodeList = types.ArticleTermList
+type PathsTermsMap = map[types.ArticleTerm]pathCodeList
 
 type articleEdge struct {
-	start types.ArticleCode
-	stops types.ArticleCode
+	start types.ArticleTerm
+	stops types.ArticleTerm
 }
 
-func newArticleEdge(codeStart types.ArticleCode, codeStops types.ArticleCode) articleEdge {
+func newArticleEdge(codeStart types.ArticleTerm, codeStops types.ArticleTerm) articleEdge {
 	return 	articleEdge{ start: codeStart, stops: codeStops }
 }
 
-type mapEdge map[articleEdge]bool
+type mapEdge = map[articleEdge]bool
 
 // articleEdgeSet the set of ArticleEdge
 type articleEdgeSet struct {
@@ -82,43 +83,43 @@ func (s *articleEdgeSet) Sort() []articleEdge {
 		itemsSlice = append(itemsSlice, k)
 	}
 	sort.Slice(itemsSlice, func(i, j int) bool {
-		if itemsSlice[i].start.Value() == itemsSlice[j].start.Value() {
-			return itemsSlice[i].stops.Value() < itemsSlice[j].stops.Value()
+		if types.ArticleTermCompare(itemsSlice[i].start, itemsSlice[j].start)==0 {
+			return types.ArticleTermCompare(itemsSlice[i].stops, itemsSlice[j].stops) < 0
 		}
-		return itemsSlice[i].start.Value() < itemsSlice[j].start.Value()
+		return types.ArticleTermCompare(itemsSlice[i].start, itemsSlice[j].start) < 0
 	})
 	return itemsSlice
 }
 
-type articleCodeQueue struct {
-	queue []types.ArticleCode
+type articleTermQueue struct {
+	queue types.ArticleTermList
 }
 
-func (c *articleCodeQueue) Enqueue(article types.ArticleCode) {
+func (c *articleTermQueue) Enqueue(article types.ArticleTerm) {
 	c.queue = append(c.queue, article)
 }
 
-func (c *articleCodeQueue) Dequeue() (types.ArticleCode, error) {
+func (c *articleTermQueue) Dequeue() (types.ArticleTerm, error) {
 	if len(c.queue) > 0 {
 		code := c.queue[0]
 		c.queue = c.queue[1:]
 		return code, nil
 	}
-	return types.NewArticleCode(), fmt.Errorf("pop Error: Queue is empty")
+	return types.NewArticleTerm(), fmt.Errorf("pop Error: Queue is empty")
 }
 
-func (c *articleCodeQueue) Front() (types.ArticleCode, error) {
+func (c *articleTermQueue) Front() (types.ArticleTerm, error) {
 	if len(c.queue) > 0 {
 		return c.queue[0], nil
 	}
-	return types.NewArticleCode(), fmt.Errorf("peep Error: Queue is empty")
+	return types.NewArticleTerm(), fmt.Errorf("peep Error: Queue is empty")
 }
 
-func (c *articleCodeQueue) Size() int {
+func (c *articleTermQueue) Size() int {
 	return len(c.queue)
 }
 
-func (c *articleCodeQueue) Empty() bool {
+func (c *articleTermQueue) Empty() bool {
 	return len(c.queue) == 0
 }
 

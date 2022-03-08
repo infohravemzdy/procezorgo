@@ -1,47 +1,33 @@
 package types
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type NameDescriptionFce func (int32) string
 
 type ITermResult interface {
 	ITermSymbol
+	Spec() IArticleSpec
 	Concept() ConceptCode
-	ResultDescr() string
-	ResultBasis() int32
-	ResultValue() int32
 	ConceptDescr() string
 }
 
 type TermResult struct {
 	TermSymbol
-	concept  ConceptCode
+	spec    IArticleSpec
+	concept ConceptCode
 	target   ITermTarget
-	resultDescr string
-	resultBasis int32
-	resultValue int32
 	articleFunc NameDescriptionFce
 	conceptFunc NameDescriptionFce
 }
 
+func (t TermResult) Spec() IArticleSpec {
+	return t.spec
+}
+
 func (t TermResult) Concept() ConceptCode {
 	return t.concept
-}
-
-func (t TermResult) Defs() IArticleDefine {
-	return GetArticleDefine(t.Article().Value(), t.Concept().Value())
-}
-
-func (t TermResult) ResultDescr() string {
-	return t.resultDescr
-}
-
-func (t TermResult) ResultBasis() int32 {
-	return t.resultBasis
-}
-
-func (t TermResult) ResultValue() int32 {
-	return t.resultValue
 }
 
 func (t TermResult) ArticleDescr() string {
@@ -52,7 +38,7 @@ func (t TermResult) ConceptDescr() string {
 	return fmt.Sprintf("ConceptCode for: %v", t.concept.Value())
 }
 
-func NewTermResult(target ITermTarget, value int32, basis int32, descr string) TermResult {
+func NewTermResult(target ITermTarget, spec IArticleSpec) TermResult {
 	var mont = NewMonthCode()
 	var cont = NewContractCode()
 	var post = NewPositionCode()
@@ -70,8 +56,8 @@ func NewTermResult(target ITermTarget, value int32, basis int32, descr string) T
 	}
 
 	return TermResult{ TermSymbol: NewTermSymbol(mont, cont, post, vars, code),
-		concept: role, resultValue: value, resultBasis: basis, resultDescr: descr}
+		concept: role, spec: spec}
 }
 
-type ITermResultList []ITermResult
+type ITermResultList = []ITermResult
 

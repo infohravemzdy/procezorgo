@@ -16,7 +16,7 @@ func (v ConceptCode) IsZero() bool {
 	return v.value == conceptZeroCode
 }
 
-func ConceptZero() ConceptCode {
+func ConceptCodeZero() ConceptCode {
 	return NewConceptCode()
 }
 

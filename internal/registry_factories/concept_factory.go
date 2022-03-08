@@ -14,7 +14,7 @@ type IConceptSpecFactory interface {
 }
 
 func NotFoundConceptSpec() providers.IConceptSpec {
-	ConceptCode := conceptNotfound
+	ConceptCode := conceptCodeNotfound
 
 	return providers.NewConceptSpec(ConceptCode)
 }
@@ -28,7 +28,7 @@ func (p NotFoundConceptProvider) GetSpec(period legalios.IPeriod, version types.
 }
 
 func NewNotFoundConceptProvider() providers.IConceptSpecProvider {
-	return NotFoundConceptProvider{providers.NewConceptCodeProvider(conceptNotfound) }
+	return NotFoundConceptProvider{providers.NewConceptCodeProvider(conceptCodeNotfound) }
 }
 
 type BuildConceptProvidersFunc func (f *ConceptSpecFactory) bool

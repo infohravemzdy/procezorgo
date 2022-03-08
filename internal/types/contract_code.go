@@ -16,7 +16,7 @@ func (v ContractCode) IsZero() bool {
 	return v.value == contractZeroCode
 }
 
-func ContractZero() ContractCode {
+func ContractCodeZero() ContractCode {
 	return NewContractCode()
 }
 

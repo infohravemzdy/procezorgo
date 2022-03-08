@@ -11,19 +11,24 @@ import (
 type IResultBuilder interface {
 	GetVersion() types.VersionCode
 	GetPeriod() legalios.IPeriod
+
 	InitWithPeriod(version types.VersionCode, period legalios.IPeriod, articleFactory factories.IArticleSpecFactory, conceptFactory factories.IConceptSpecFactory) bool
-	GetResults(ruleset legalios.IBundleProps, targets []types.ITermTarget, finDefs types.IArticleDefine) providers.IBuilderResultList
+	GetResults(ruleset legalios.IBundleProps,
+		contractTerms types.IContractTermList, positionTerms types.IPositionTermList,
+		targets types.ITermTargetList, calcArts types.ArticleCodeList) providers.IBuilderResultList
+	GetOrder() OrderCodeList
+	GetPaths() PathsTermsMap
 }
 
 type resultBuilder struct {
 	version types.VersionCode
 	period  legalios.IPeriod
 
-	articlesModel []providers.IArticleSpec
+	articlesModel []types.IArticleSpec
 	conceptsModel []providers.IConceptSpec
 
-	articlesOrder []types.ArticleCode
-	articlesPaths pathCodeMap
+	articlesOrder OrderCodeList
+	articlesPaths PathsTermsMap
 }
 
 func (f resultBuilder) GetPeriod() legalios.IPeriod {
@@ -34,12 +39,11 @@ func (f resultBuilder) GetVersion() types.VersionCode {
 	return f.version
 }
 
-func (f resultBuilder) GetResults(ruleset legalios.IBundleProps, targets []types.ITermTarget, finDefs types.IArticleDefine) providers.IBuilderResultList {
-	calculTargets := f.buildCalculsList(targets, finDefs)
-
-	calculResults := f.buildResultsList(ruleset, calculTargets)
-
-	return calculResults
+func (f resultBuilder) GetOrder() OrderCodeList {
+	return f.articlesOrder
+}
+func (f resultBuilder) GetPaths() PathsTermsMap {
+	return f.articlesPaths
 }
 
 func (f *resultBuilder) InitWithPeriod(version types.VersionCode, period legalios.IPeriod, articleFactory factories.IArticleSpecFactory, conceptFactory factories.IConceptSpecFactory) bool {
@@ -56,9 +60,22 @@ func (f *resultBuilder) InitWithPeriod(version types.VersionCode, period legalio
 	return initResult
 }
 
+func (f resultBuilder) GetResults(ruleset legalios.IBundleProps,
+	contractTerms types.IContractTermList, positionTerms types.IPositionTermList,
+	targets types.ITermTargetList, calcArts types.ArticleCodeList) providers.IBuilderResultList {
+
+	calculTargets := f.buildCalculsList(f.period, ruleset,
+		contractTerms, positionTerms, targets, calcArts)
+
+	calculResults := f.buildResultsList(f.period, ruleset,
+		calculTargets)
+
+	return calculResults
+}
+
 func NewResultBuilder() IResultBuilder {
-	factory := resultBuilder{ version: types.VersionZero(), period: legalios.PeriodZero(),
-		articlesOrder: make([]types.ArticleCode, 0), articlesPaths: make(pathCodeMap) }
+	factory := resultBuilder{ version: types.VersionCodeZero(), period: legalios.PeriodZero(),
+		articlesOrder: make([]types.ArticleTerm, 0), articlesPaths: make(PathsTermsMap) }
 
 	return &factory
 }
@@ -67,36 +84,58 @@ func mergeResults(results providers.IBuilderResultList, resultTarget providers.I
 	return append(results, resultTarget...)
 }
 
-func (f resultBuilder) buildCalculsList(targets []types.ITermTarget, finDefs types.IArticleDefine) []ITermCalcul {
-	finCalc := types.CloneArticleDefine(finDefs)
+func (f resultBuilder) buildCalculsList(period legalios.IPeriod, ruleset legalios.IBundleProps,
+	contractTerms types.IContractTermList, positionTerms types.IPositionTermList,
+	targets types.ITermTargetList, calcArts types.ArticleCodeList) []ITermCalcul {
+	specDefines := make(types.IArticleSpecList, 0)
+	for _, s := range calcArts {
+		articleSpec, _ := firstOrDefaultArticleSpec(f.articlesModel, findArticleSpecCode(s.Value()))
+		if articleSpec != nil {
+			specDefines = append(specDefines, articleSpec)
+		}
+	}
+	calcDefines := make(types.IArticleDefineList, 0)
+	for _, s := range specDefines {
+		calcDefines = append(calcDefines, types.CloneArticleDefine(s.Defs()))
+	}
 
-	targetsSpec := f.addFinDefToTargets(f.period, toTargetList(targets), finCalc)
+	targetsSpec := f.addFinDefToTargets(period, ruleset,
+		contractTerms, positionTerms, toTargetList(targets), calcDefines)
 
-	targetsStep := f.addExternToTargets(f.articlesOrder, f.period, targetsSpec)
+	targetsStep := f.addExternToTargets(f.articlesOrder, period, ruleset,
+		contractTerms, positionTerms, targetsSpec)
 
 	calculsList := f.addTargetToCalculs(targetsStep)
 
 	return calculsList
 }
 
-func (f resultBuilder) buildResultsList(ruleset legalios.IBundleProps, calculs []ITermCalcul) providers.IBuilderResultList {
+func (f resultBuilder) buildResultsList(period legalios.IPeriod, ruleset legalios.IBundleProps,
+	calculs []ITermCalcul) providers.IBuilderResultList {
 	resultsList := make(providers.IBuilderResultList, 0, len(calculs))
 
 	for _, x := range calculs {
-		resultsList = mergeResults(resultsList, x.GetResults(f.period, ruleset, resultsList))
+		resultsList = mergeResults(resultsList, x.GetResults(period, ruleset, resultsList))
 	}
 	return resultsList
 }
 
-func (f resultBuilder) addFinDefToTargets(period legalios.IPeriod, targets []types.ITermTarget, finDef types.IArticleDefine) []types.ITermTarget {
-	return f.mergeItemPendings(period, targets, finDef)
+func (f resultBuilder) addFinDefToTargets(period legalios.IPeriod, ruleset legalios.IBundleProps,
+	contractTerms types.IContractTermList, positionTerms types.IPositionTermList,
+	targets types.ITermTargetList, calcDefs types.IArticleDefineList) types.ITermTargetList {
+	return f.mergeListPendings(period, ruleset,
+		contractTerms, positionTerms, targets, calcDefs)
 }
 
-func (f resultBuilder) addExternToTargets(topoOrders []types.ArticleCode, period legalios.IPeriod, targets []types.ITermTarget)  []types.ITermTarget {
+func (f resultBuilder) addExternToTargets(topoOrders OrderCodeList,
+	period legalios.IPeriod, ruleset legalios.IBundleProps,
+	contractTerms types.IContractTermList, positionTerms types.IPositionTermList,
+	targets types.ITermTargetList) types.ITermTargetList {
 	targetList := toTargetList(targets)
 
 	for _, item := range targets {
-		targetList = f.mergePendings(period, targetList, item)
+		targetList = f.mergePendings(period, ruleset,
+			contractTerms, positionTerms, targetList, item)
 	}
 
 	sort.Slice(targetList, func(i, j int) bool {
@@ -105,19 +144,43 @@ func (f resultBuilder) addExternToTargets(topoOrders []types.ArticleCode, period
 	return targetList
 }
 
-func (f resultBuilder) addTargetToCalculs(targets []types.ITermTarget)  []ITermCalcul {
+func (f resultBuilder) addDefinesToTargets(period legalios.IPeriod, ruleset legalios.IBundleProps,
+	contractTerms types.IContractTermList, positionTerms types.IPositionTermList,
+	targets types.ITermTargetList, defines types.IArticleDefineList) types.ITermTargetList {
+	targetList := make(types.ITermTargetList, 0)
+	for _, x := range defines {
+		targetCodes := make(types.ITermTargetList, 0)
+		for _, t := range targets {
+			if  t.Article() == x.Code() {
+				targetCodes = append(targetCodes, t)
+			}
+		}
+		targetList = append(targetList,
+			getTargetList(period, ruleset, f.conceptsModel,
+				contractTerms, positionTerms, targetCodes, x.Code(), x.Role())...)
+
+	}
+	return targetList
+}
+
+func (f resultBuilder) addTargetToCalculs(targets types.ITermTargetList) []ITermCalcul {
 	var calculList = make([]ITermCalcul, 0, len(targets))
 
 	for _, term := range targets {
-		calculList = append(calculList, NewTermCalcul(term, getCalculFunc(f.conceptsModel, term.Concept())))
+		articleSpec, _ := firstOrDefaultArticleSpec(f.articlesModel, findArticleSpecCode(term.Article().Value()))
+		if articleSpec != nil {
+			calculList = append(calculList, NewTermCalcul(term, articleSpec, getCalculFunc(f.conceptsModel, term.Concept())))
+		}
 	}
 	return calculList
 }
 
-func (f resultBuilder) mergePendings(period legalios.IPeriod, init []types.ITermTarget, target types.ITermTarget) []types.ITermTarget {
-	targetsInit := toTargetList(init)
+func (f resultBuilder) mergePendings(period legalios.IPeriod, ruleset legalios.IBundleProps,
+	contractTerms types.IContractTermList, positionTerms types.IPositionTermList,
+	targets types.ITermTargetList, target types.ITermTarget) types.ITermTargetList {
+	targetsInit := toTargetList(targets)
 
-	pendingsPath, exists := firstOrDefaultInPathMap(f.articlesPaths, findArticleCode(target.Article()))
+	pendingsPath, exists := firstOrDefaultInPathMap(f.articlesPaths, findArticleTern(target.Article()))
 
 	if exists == false {
 		return targetsInit
@@ -125,32 +188,64 @@ func (f resultBuilder) mergePendings(period legalios.IPeriod, init []types.ITerm
 
 	targetsList := toTargetList(targetsInit)
 	for _, item := range pendingsPath {
-		targetsList = f.mergeItemPendings(period, targetsList, item)
+		targetsList = f.mergeItemPendings(period, ruleset, contractTerms, positionTerms, targetsList, item)
 	}
 	return targetsList
 }
 
-func (f resultBuilder) mergeItemPendings(period legalios.IPeriod, init []types.ITermTarget, articleDefs types.IArticleDefine) []types.ITermTarget {
-	monthCode := types.GetMonthCode(period.GetCode())
+func (f resultBuilder) mergeItemPendings(period legalios.IPeriod, ruleset legalios.IBundleProps,
+	contractTerms types.IContractTermList, positionTerms types.IPositionTermList,
+	targets types.ITermTargetList, articleDefs types.IArticleDefine) types.ITermTargetList {
+	resultList := toTargetList(targets)
 
-	contract := types.NewContractCode()
-	position := types.NewPositionCode()
-
-	resultList := toTargetList(init)
-
-	_, exists := firstOrDefaultTermTarget(init, findTermTargetCode(articleDefs.Code()))
-
-	if exists {
-		return resultList
+	initTargets := make(types.ITermTargetList, 0)
+	for _, t := range targets {
+		if t.Article() == articleDefs.Code() {
+			initTargets = append(initTargets, t)
+		}
 	}
 
-	variant := types.GetVariantCode(1)
+	targetList := getTargetList(period, ruleset, f.conceptsModel,
+		contractTerms, positionTerms, initTargets, articleDefs.Code(), articleDefs.Role())
 
-	resultItem := types.NewTermTarget(monthCode, contract, position, variant, articleDefs.Code(), articleDefs.Role())
-
-	resultList = append(resultList, resultItem)
+	resultList = append(resultList, targetList...)
 
 	return resultList
+}
+
+func (f resultBuilder) mergeListPendings(period legalios.IPeriod, ruleset legalios.IBundleProps,
+	contractTerms types.IContractTermList, positionTerms types.IPositionTermList,
+	targets types.ITermTargetList, calcDefs types.IArticleDefineList) types.ITermTargetList {
+	resultList := toTargetList(targets)
+
+	defineList := make(types.IArticleDefineList, 0)
+	for _, x := range calcDefs {
+		_, exists := firstOrDefaultTermTarget(targets, findTermTargetCode(x.Code()))
+		if exists == false {
+			defineList = append(defineList, x)
+		}
+	}
+
+	targetList := f.addDefinesToTargets(period, ruleset, contractTerms, positionTerms, targets, defineList)
+
+	resultList = append(resultList, targetList...)
+
+	return resultList
+}
+
+func getTargetList(period legalios.IPeriod, ruleset legalios.IBundleProps, conceptsModel []providers.IConceptSpec,
+	contractTerms types.IContractTermList, positionTerms types.IPositionTermList,
+	targets types.ITermTargetList, article types.ArticleCode, concept types.ConceptCode) types.ITermTargetList {
+	monthCode := types.GetMonthCode(period.GetCode())
+	variant := types.GetVariantCode(1)
+
+	conceptSpec, _ := firstOrDefaultConceptSpec(conceptsModel, findConceptSpecCode(concept.Value()))
+	if conceptSpec == nil {
+		contract := types.NewContractCode()
+		position := types.NewPositionCode()
+		return types.ITermTargetList{types.NewTermTarget(monthCode, contract, position, variant, article, concept)}
+	}
+	return conceptSpec.DefaultTargetList(article, period, ruleset, monthCode, contractTerms, positionTerms, targets, variant)
 }
 
 func getCalculFunc(conceptsModel []providers.IConceptSpec, concept types.ConceptCode) providers.ResultFunc {
@@ -161,20 +256,24 @@ func getCalculFunc(conceptsModel []providers.IConceptSpec, concept types.Concept
 	return conceptSpec.ResultDelegate()
 }
 
-func NotFoundCalculFunc(target types.ITermTarget, period legalios.IPeriod, ruleset legalios.IBundleProps, results providers.IBuilderResultList) providers.IBuilderResultList {
+func NotFoundCalculFunc(target types.ITermTarget, spec types.IArticleSpec, period legalios.IPeriod, ruleset legalios.IBundleProps, results providers.IBuilderResultList) providers.IBuilderResultList {
 	return providers.IBuilderResultList{types.NewFailureResult(NewNoResultFuncError(period, target))}
 }
 
-func targetCompare(topoOrders []types.ArticleCode, x types.ITermTarget, y types.ITermTarget) int {
+func targetCompare(topoOrders types.ArticleTermList, x types.ITermTarget, y types.ITermTarget) int {
+	var codeOrders = make(types.ArticleCodeList, 0, len(topoOrders))
+	for _, t := range topoOrders {
+		codeOrders = append(codeOrders, t.Code())
+	}
 	var xIndex = -1
-	for p, v := range topoOrders {
+	for p, v := range codeOrders {
 		if v == x.Article() {
 			xIndex = p
 			break
 		}
 	}
 	var yIndex = -1
-	for p, v := range topoOrders {
+	for p, v := range codeOrders {
 		if v == y.Article() {
 			yIndex = p
 			break

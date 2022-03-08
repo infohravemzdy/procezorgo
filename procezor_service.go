@@ -10,12 +10,16 @@ import (
 
 type IProcezorService interface {
 	Version() types.VersionCode
-	FinDefs() types.IArticleDefine
+	CalcArticles() types.ArticleCodeList
 
 	InitWithPeriod(period IPeriod) bool
 	BuildFactories() bool
+
+	BuilderOrder() OrderCodeList
+	BuilderPaths() PathsTermsMap
+
 	GetResults(period IPeriod, ruleset legalios.IBundleProps, targets types.ITermTargetList) providers.IBuilderResultList
-	GetArticleSpec(code types.ArticleCode, period IPeriod, version types.VersionCode) providers.IArticleSpec
+	GetArticleSpec(code types.ArticleCode, period IPeriod, version types.VersionCode) types.IArticleSpec
 	GetConceptSpec(code types.ConceptCode, period IPeriod, version types.VersionCode) providers.IConceptSpec
 }
 
@@ -24,8 +28,18 @@ type IProcezorFactoryBuilder interface {
 	BuildConceptFactory(s *ProcezorService) bool
 }
 
+type IProcezorContractBuilder interface {
+	GetContractTerms(period IPeriod, targets ITermTargetList) IContractTermList
+}
+
+type IProcezorPositionBuilder interface {
+	GetPositionTerms(period IPeriod, contracts IContractTermList, targets ITermTargetList) IPositionTermList
+}
+
 type ProcezorService struct {
 	factoryBuilder IProcezorFactoryBuilder
+	contractBuilder IProcezorContractBuilder
+	positionBuilder IProcezorPositionBuilder
 
 	ArticleFactory factories.IArticleSpecFactory
 	ConceptFactory factories.IConceptSpecFactory
@@ -33,17 +47,23 @@ type ProcezorService struct {
 	resultsBuilder registry.IResultBuilder
 
 	version types.VersionCode
-	finDefs types.IArticleDefine
+	calcArticles types.ArticleCodeList
 }
 
 func (s ProcezorService) Version() types.VersionCode {
 	return s.version
 }
 
-func (s ProcezorService) FinDefs() types.IArticleDefine {
-	return s.finDefs
+func (s ProcezorService) CalcArticles() types.ArticleCodeList {
+	return s.calcArticles
 }
 
+func (s ProcezorService) BuilderOrder() OrderCodeList {
+	return s.resultsBuilder.GetOrder()
+}
+func (s ProcezorService) BuilderPaths() PathsTermsMap {
+	return s.resultsBuilder.GetPaths()
+}
 func (s *ProcezorService) InitWithPeriod(period IPeriod) bool {
 	initResult := false
 
@@ -81,12 +101,18 @@ func (s ProcezorService) GetResults(period IPeriod, ruleset legalios.IBundleProp
 		return make(providers.IBuilderResultList, 0)
 	}
 
-	results := s.resultsBuilder.GetResults(ruleset, targets, s.finDefs)
+	contractTerms := s.contractBuilder.GetContractTerms(period, targets)
+	positionTerms := s.positionBuilder.GetPositionTerms(period, contractTerms, targets)
+
+	if s.factoryBuilder != nil {
+	}
+
+	results := s.resultsBuilder.GetResults(ruleset, contractTerms, positionTerms, targets, s.calcArticles)
 
 	return results
 }
 
-func (s ProcezorService) GetArticleSpec(code types.ArticleCode, period IPeriod, version types.VersionCode) providers.IArticleSpec {
+func (s ProcezorService) GetArticleSpec(code types.ArticleCode, period IPeriod, version types.VersionCode) types.IArticleSpec {
 	if  s.ArticleFactory == nil {
 		return nil
 	}
@@ -100,9 +126,12 @@ func (s ProcezorService) GetConceptSpec(code types.ConceptCode, period IPeriod, 
 	return s.ConceptFactory.GetSpec(code, period, version)
 }
 
-func NewProcezorService(version int32, finDefs types.IArticleDefine, serviceSpec IProcezorFactoryBuilder) IProcezorService {
-	service := ProcezorService{ version: types.GetVersionCode(version), finDefs: finDefs,
-		resultsBuilder: registry.NewResultBuilder(), factoryBuilder: serviceSpec }
+func NewProcezorService(version int32, calcArts types.ArticleCodeList,
+	contractSpec IProcezorContractBuilder, positionSpec IProcezorPositionBuilder,
+	serviceSpec IProcezorFactoryBuilder) IProcezorService {
+	service := ProcezorService{ version: types.GetVersionCode(version), calcArticles: calcArts,
+		resultsBuilder: registry.NewResultBuilder(),
+		contractBuilder: contractSpec, positionBuilder: positionSpec, factoryBuilder: serviceSpec }
 	service.BuildFactories()
 	return &service
 }

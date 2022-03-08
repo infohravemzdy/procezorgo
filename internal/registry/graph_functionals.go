@@ -33,13 +33,13 @@ func toEdgeHashSet(edges articleEdgeSet) articleEdgeSet {
 	return result
 }
 
-type findArticleSpecFunc func (spec providers.IArticleSpec) bool
+type findArticleSpecFunc func (spec types.IArticleSpec) bool
 
 func findArticleSpecCode(code int32) findArticleSpecFunc {
-	return func (item providers.IArticleSpec) bool { return item.Code().Value() == code	}
+	return func (item types.IArticleSpec) bool { return item.Code().Value() == code	}
 }
 
-func firstOrDefaultArticleSpec(source []providers.IArticleSpec, findFunc findArticleSpecFunc) (providers.IArticleSpec, bool) {
+func firstOrDefaultArticleSpec(source []types.IArticleSpec, findFunc findArticleSpecFunc) (types.IArticleSpec, bool) {
 	for _, v := range source {
 		if findFunc(v) {
 			return v, true
@@ -48,7 +48,15 @@ func firstOrDefaultArticleSpec(source []providers.IArticleSpec, findFunc findArt
 	return nil, false
 }
 
-func getArticleDefs(article types.ArticleCode, articlesModel []providers.IArticleSpec) types.IArticleDefine {
+func getArticleTerm(article types.ArticleCode, articlesModel []types.IArticleSpec) types.ArticleTerm {
+	articleSpec, _ := firstOrDefaultArticleSpec(articlesModel, findArticleSpecCode(article.Value()))
+	if articleSpec == nil {
+		return types.NewArticleTerm()
+	}
+	return articleSpec.Term()
+}
+
+func getArticleDefs(article types.ArticleCode, articlesModel []types.IArticleSpec) types.IArticleDefine {
 	articleSpec, _ := firstOrDefaultArticleSpec(articlesModel, findArticleSpecCode(article.Value()))
 	if articleSpec == nil {
 		return types.NewArticleDefine()
@@ -72,9 +80,14 @@ func firstOrDefaultConceptSpec(source []providers.IConceptSpec, findFunc findCon
 }
 
 type findArticleCodeFunc func (spec types.ArticleCode) bool
+type findArticleTermFunc func (spec types.ArticleTerm) bool
 
 func findArticleCode(article types.ArticleCode) findArticleCodeFunc {
 	return func (item types.ArticleCode) bool { return item == article }
+}
+
+func findArticleTern(article types.ArticleCode) findArticleTermFunc {
+	return func (item types.ArticleTerm) bool { return item.Code() == article }
 }
 
 type findTermTargetFunc func (term types.ITermTarget) bool
@@ -100,7 +113,7 @@ func toTargetList(source []types.ITermTarget) []types.ITermTarget {
 	return result
 }
 
-func firstOrDefaultInPathMap(source pathCodeMap, findFunc findArticleCodeFunc) ([]types.IArticleDefine, bool) {
+func firstOrDefaultInPathMap(source PathsTermsMap, findFunc findArticleTermFunc) ([]types.IArticleDefine, bool) {
 	for k, v := range source {
 		if findFunc(k) {
 			return v.list, true

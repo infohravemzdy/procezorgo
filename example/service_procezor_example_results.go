@@ -6,131 +6,87 @@ type TimeshtWorkingResult struct {
 	ExampleTermResult
 }
 
-func NewTimeshtWorkingResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &TimeshtWorkingResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
-}
-
-func NewEmptyTimeshtWorkingResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &TimeshtWorkingResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+func NewTimeshtWorkingResult(target procezor.ITermTarget, spec procezor.IArticleSpec) procezor.ITermResult {
+	return &TimeshtWorkingResult{ExampleTermResult: NewExampleTermResult(target, spec)}
 }
 
 type AmountBasisResult struct {
 	ExampleTermResult
 }
 
-func NewAmountBasisResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &AmountBasisResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
-}
-
-func NewEmptyAmountBasisResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &AmountBasisResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+func NewAmountBasisResult(target procezor.ITermTarget, spec procezor.IArticleSpec) procezor.ITermResult {
+	return &AmountBasisResult{ExampleTermResult: NewExampleTermResult(target, spec)}
 }
 
 type AmountFixedResult struct {
 	ExampleTermResult
 }
 
-func NewAmountFixedResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &AmountFixedResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
-}
-
-func NewEmptyAmountFixedResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &AmountFixedResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+func NewAmountFixedResult(target procezor.ITermTarget, spec procezor.IArticleSpec) procezor.ITermResult {
+	return &AmountFixedResult{ExampleTermResult: NewExampleTermResult(target, spec)}
 }
 
 type HealthInsbaseResult struct {
 	ExampleTermResult
 }
 
-func NewHealthInsbaseResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &HealthInsbaseResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
-}
-
-func NewEmptyHealthInsbaseResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &HealthInsbaseResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+func NewHealthInsbaseResult(target procezor.ITermTarget, spec procezor.IArticleSpec) procezor.ITermResult {
+	return &HealthInsbaseResult{ExampleTermResult: NewExampleTermResult(target, spec)}
 }
 
 type SocialInsbaseResult struct {
 	ExampleTermResult
 }
 
-func NewSocialInsbaseResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &SocialInsbaseResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
-}
-
-func NewEmptySocialInsbaseResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &SocialInsbaseResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+func NewSocialInsbaseResult(target procezor.ITermTarget, spec procezor.IArticleSpec) procezor.ITermResult {
+	return &SocialInsbaseResult{ExampleTermResult: NewExampleTermResult(target, spec)}
 }
 
 type HealthInspaymResult struct {
 	ExampleTermResult
 }
 
-func NewHealthInspaymResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &HealthInspaymResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
-}
-
-func NewEmptyHealthInspaymResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &HealthInspaymResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+func NewHealthInspaymResult(target procezor.ITermTarget, spec procezor.IArticleSpec) procezor.ITermResult {
+	return &HealthInspaymResult{ExampleTermResult: NewExampleTermResult(target, spec)}
 }
 
 type SocialInspaymResult struct {
 	ExampleTermResult
 }
 
-func NewSocialInspaymResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &SocialInspaymResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
-}
-
-func NewEmptySocialInspaymResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &SocialInspaymResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+func NewSocialInspaymResult(target procezor.ITermTarget, spec procezor.IArticleSpec) procezor.ITermResult {
+	return &SocialInspaymResult{ExampleTermResult: NewExampleTermResult(target, spec)}
 }
 
 type TaxingAdvbaseResult struct {
 	ExampleTermResult
 }
 
-func NewTaxingAdvbaseResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &TaxingAdvbaseResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
-}
-
-func NewEmptyTaxingAdvbaseResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &TaxingAdvbaseResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+func NewTaxingAdvbaseResult(target procezor.ITermTarget, spec procezor.IArticleSpec) procezor.ITermResult {
+	return &TaxingAdvbaseResult{ExampleTermResult: NewExampleTermResult(target, spec)}
 }
 
 type TaxingAdvpaymResult struct {
 	ExampleTermResult
 }
 
-func NewTaxingAdvpaymResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &TaxingAdvpaymResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
-}
-
-func NewEmptyTaxingAdvpaymResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &TaxingAdvpaymResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+func NewTaxingAdvpaymResult(target procezor.ITermTarget, spec procezor.IArticleSpec) procezor.ITermResult {
+	return &TaxingAdvpaymResult{ExampleTermResult: NewExampleTermResult(target, spec)}
 }
 
 type IncomeGrossResult struct {
 	ExampleTermResult
 }
 
-func NewIncomeGrossResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &IncomeGrossResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
-}
-
-func NewEmptyIncomeGrossResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &IncomeGrossResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+func NewIncomeGrossResult(target procezor.ITermTarget, spec procezor.IArticleSpec) procezor.ITermResult {
+	return &IncomeGrossResult{ExampleTermResult: NewExampleTermResult(target, spec)}
 }
 
 type IncomeNettoResult struct {
 	ExampleTermResult
 }
 
-func NewIncomeNettoResult(target procezor.ITermTarget, value int32, basis int32, descr string) procezor.ITermResult {
-	return &IncomeNettoResult{ExampleTermResult: NewExampleTermResult(target, value, basis, descr)}
-}
-
-func NewEmptyIncomeNettoResult(target procezor.ITermTarget) procezor.ITermResult {
-	return &IncomeNettoResult{ExampleTermResult: NewExampleTermResult(target, RESULT_VALUE_ZERO, RESULT_BASIS_ZERO, RESULT_DESCRIPTION_EMPTY)}
+func NewIncomeNettoResult(target procezor.ITermTarget, spec procezor.IArticleSpec) procezor.ITermResult {
+	return &IncomeNettoResult{ExampleTermResult: NewExampleTermResult(target, spec)}
 }
 

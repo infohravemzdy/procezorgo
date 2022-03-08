@@ -16,7 +16,7 @@ func (v PositionCode) IsZero() bool {
 	return v.value == positionZeroCode
 }
 
-func PositionZero() PositionCode {
+func PositionCodeZero() PositionCode {
 	return NewPositionCode()
 }
 

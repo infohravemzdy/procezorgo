@@ -6,53 +6,56 @@ import (
 	"github.com/mzdyhrave/procezorgo/internal/types"
 )
 
+const (
+	ARTICLE_DEFAULT_SEQUENS int16 = 0
+)
 type ExampleArticleFactory struct {
 	procezor.IArticleSpecFactory
 }
 
 func NewExampleArticleFactory() procezor.IArticleSpecFactory{
 	providersConfig := []procezor.ProviderRecord {
-		procezor.NewProviderRecord(ARTICLE_TIMESHT_WORKING.Id(), CONCEPT_TIMESHT_WORKING.Id(),
+		procezor.NewProviderRecord(ARTICLE_TIMESHT_WORKING.Id(), ARTICLE_DEFAULT_SEQUENS, CONCEPT_TIMESHT_WORKING.Id(),
 			[]int32{}),
-		procezor.NewProviderRecord(ARTICLE_PAYMENT_SALARY.Id(), CONCEPT_AMOUNT_BASIS.Id(),
+		procezor.NewProviderRecord(ARTICLE_PAYMENT_SALARY.Id(), ARTICLE_DEFAULT_SEQUENS, CONCEPT_AMOUNT_BASIS.Id(),
 			[]int32 {
 				ARTICLE_INCOME_GROSS.Id(),
 				ARTICLE_HEALTH_INSBASE.Id(),
 				ARTICLE_SOCIAL_INSBASE.Id(),
 				ARTICLE_TAXING_ADVBASE.Id(),
 			}),
-		procezor.NewProviderRecord(ARTICLE_PAYMENT_BONUS.Id(), CONCEPT_AMOUNT_FIXED.Id(),
+		procezor.NewProviderRecord(ARTICLE_PAYMENT_BONUS.Id(), ARTICLE_DEFAULT_SEQUENS, CONCEPT_AMOUNT_FIXED.Id(),
 			[]int32 {
 				ARTICLE_INCOME_GROSS.Id(),
 				ARTICLE_HEALTH_INSBASE.Id(),
 				ARTICLE_SOCIAL_INSBASE.Id(),
 				ARTICLE_TAXING_ADVBASE.Id(),
 			}),
-		procezor.NewProviderRecord(ARTICLE_PAYMENT_BARTER.Id(), CONCEPT_AMOUNT_FIXED.Id(),
+		procezor.NewProviderRecord(ARTICLE_PAYMENT_BARTER.Id(), ARTICLE_DEFAULT_SEQUENS, CONCEPT_AMOUNT_FIXED.Id(),
 			[]int32 {
 				ARTICLE_HEALTH_INSBASE.Id(),
 				ARTICLE_SOCIAL_INSBASE.Id(),
 				ARTICLE_TAXING_ADVBASE.Id(),
 			}),
-		procezor.NewProviderRecord(ARTICLE_ALLOWCE_HOFFICE.Id(), CONCEPT_AMOUNT_FIXED.Id(),
+		procezor.NewProviderRecord(ARTICLE_ALLOWCE_HOFFICE.Id(), ARTICLE_DEFAULT_SEQUENS, CONCEPT_AMOUNT_FIXED.Id(),
 			[]int32 {
 				ARTICLE_INCOME_NETTO.Id(),
 			}),
-		procezor.NewProviderRecord(ARTICLE_HEALTH_INSBASE.Id(), CONCEPT_HEALTH_INSBASE.Id(),
+		procezor.NewProviderRecord(ARTICLE_HEALTH_INSBASE.Id(), ARTICLE_DEFAULT_SEQUENS, CONCEPT_HEALTH_INSBASE.Id(),
 			[]int32{}),
-		procezor.NewProviderRecord(ARTICLE_SOCIAL_INSBASE.Id(), CONCEPT_SOCIAL_INSBASE.Id(),
+		procezor.NewProviderRecord(ARTICLE_SOCIAL_INSBASE.Id(), ARTICLE_DEFAULT_SEQUENS, CONCEPT_SOCIAL_INSBASE.Id(),
 			[]int32{}),
-		procezor.NewProviderRecord(ARTICLE_HEALTH_INSPAYM.Id(), CONCEPT_HEALTH_INSPAYM.Id(),
+		procezor.NewProviderRecord(ARTICLE_HEALTH_INSPAYM.Id(), ARTICLE_DEFAULT_SEQUENS, CONCEPT_HEALTH_INSPAYM.Id(),
 			[]int32{}),
-		procezor.NewProviderRecord(ARTICLE_SOCIAL_INSPAYM.Id(), CONCEPT_SOCIAL_INSPAYM.Id(),
+		procezor.NewProviderRecord(ARTICLE_SOCIAL_INSPAYM.Id(), ARTICLE_DEFAULT_SEQUENS, CONCEPT_SOCIAL_INSPAYM.Id(),
 			[]int32{}),
-		procezor.NewProviderRecord(ARTICLE_TAXING_ADVBASE.Id(), CONCEPT_TAXING_ADVBASE.Id(),
+		procezor.NewProviderRecord(ARTICLE_TAXING_ADVBASE.Id(), ARTICLE_DEFAULT_SEQUENS, CONCEPT_TAXING_ADVBASE.Id(),
 			[]int32{}),
-		procezor.NewProviderRecord(ARTICLE_TAXING_ADVPAYM.Id(), CONCEPT_TAXING_ADVPAYM.Id(),
+		procezor.NewProviderRecord(ARTICLE_TAXING_ADVPAYM.Id(), ARTICLE_DEFAULT_SEQUENS, CONCEPT_TAXING_ADVPAYM.Id(),
 			[]int32{}),
-		procezor.NewProviderRecord(ARTICLE_INCOME_GROSS.Id(), CONCEPT_INCOME_GROSS.Id(),
+		procezor.NewProviderRecord(ARTICLE_INCOME_GROSS.Id(), ARTICLE_DEFAULT_SEQUENS, CONCEPT_INCOME_GROSS.Id(),
 			[]int32{}),
-		procezor.NewProviderRecord(ARTICLE_INCOME_NETTO.Id(), CONCEPT_INCOME_NETTO.Id(),
+		procezor.NewProviderRecord(ARTICLE_INCOME_NETTO.Id(), ARTICLE_DEFAULT_SEQUENS, CONCEPT_INCOME_NETTO.Id(),
 			[]int32{}),
 	}
 	return ExampleArticleFactory{procezor.NewArticleSpecFactoryWithRecords(providersConfig)}
@@ -80,11 +83,10 @@ func NewExampleConceptFactory() procezor.IConceptSpecFactory {
 	}
 }
 
-type ExampleServiceBuilder struct {
-
+type serviceBuilder struct {
 }
 
-func (t ExampleServiceBuilder) BuildArticleFactory(s *procezor.ProcezorService) bool {
+func (t serviceBuilder) BuildArticleFactory(s *procezor.ProcezorService) bool {
 	s.ArticleFactory = NewExampleArticleFactory()
 	if s.ArticleFactory == nil {
 		return false
@@ -93,7 +95,7 @@ func (t ExampleServiceBuilder) BuildArticleFactory(s *procezor.ProcezorService) 
 	return true
 }
 
-func (t ExampleServiceBuilder) BuildConceptFactory(s *procezor.ProcezorService) bool {
+func (t serviceBuilder) BuildConceptFactory(s *procezor.ProcezorService) bool {
 	s.ConceptFactory = NewExampleConceptFactory()
 	if s.ConceptFactory == nil {
 		return false
@@ -102,26 +104,48 @@ func (t ExampleServiceBuilder) BuildConceptFactory(s *procezor.ProcezorService) 
 	return true
 }
 
+type contractBuilder struct {
+}
+
+func (b contractBuilder) GetContractTerms(period procezor.IPeriod, targets procezor.ITermTargetList) procezor.IContractTermList {
+	return procezor.IContractTermList{}
+}
+
+type positionBuilder struct {
+}
+
+func (b positionBuilder) GetPositionTerms(period procezor.IPeriod, contracts procezor.IContractTermList, targets procezor.ITermTargetList) procezor.IPositionTermList {
+	return procezor.IPositionTermList{}
+}
+
 type ExampleService struct {
 	procezor.IProcezorService
 }
 
 func NewExampleServiceBuilder() procezor.IProcezorFactoryBuilder {
-	return &ExampleServiceBuilder{}
+	return &serviceBuilder{}
+}
+
+func NewExampleContractBuilder() procezor.IProcezorContractBuilder {
+	return &contractBuilder{}
+}
+
+func NewExamplePositionBuilder() procezor.IProcezorPositionBuilder {
+	return &positionBuilder{}
 }
 
 func NewExampleService() procezor.IProcezorService{
 	const (
 		TestVersion      = TEST_VERSION
 		TestFinalArticle = ARTICLE_INCOME_NETTO
-		TestFinalConcept = CONCEPT_INCOME_NETTO
 	)
 	var (
-		TestFinalDefs = procezor.GetArticleDefine(TestFinalArticle.Id(), TestFinalConcept.Id())
+		TestCalcsArticle = []procezor.ArticleCode{procezor.GetArticleCode(TestFinalArticle.Id())}
 	)
 
 	return &ExampleService{
-		procezor.NewProcezorService(TestVersion, TestFinalDefs, NewExampleServiceBuilder()),
+		procezor.NewProcezorService(TestVersion, TestCalcsArticle,
+			NewExampleContractBuilder(), NewExamplePositionBuilder(), NewExampleServiceBuilder()),
 	}
 }
 
