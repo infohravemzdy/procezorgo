@@ -1,6 +1,7 @@
 package procezorgo
 
 import (
+	"fmt"
 	legalios "github.com/mzdyhrave/legaliosgo"
 	"github.com/mzdyhrave/procezorgo/internal/registry"
 	factories "github.com/mzdyhrave/procezorgo/internal/registry_factories"
@@ -80,6 +81,9 @@ func (s *ProcezorService) InitWithPeriod(period IPeriod) bool {
 	if initBuilder && s.ArticleFactory != nil && s.ConceptFactory != nil {
 		initResult = s.resultsBuilder.InitWithPeriod(s.version, period, s.ArticleFactory, s.ConceptFactory)
 	}
+	if initResult == false {
+		println(fmt.Sprintf("Period: %d, init with period failed", period.GetCode()))
+	}
 	return initResult
 }
 
@@ -90,6 +94,9 @@ func (s *ProcezorService) BuildFactories() bool {
 	if s.factoryBuilder != nil {
 		articleFactorySuccess = s.factoryBuilder.BuildArticleFactory(s)
 		conceptFactorySuccess = s.factoryBuilder.BuildConceptFactory(s)
+	}
+	if !(articleFactorySuccess && conceptFactorySuccess) {
+		println(fmt.Sprintf("ServiceProcezor::BuildFactories(): Version: %d, build factories failed", s.version.Value()))
 	}
 	return articleFactorySuccess && conceptFactorySuccess
 }
@@ -132,7 +139,9 @@ func NewProcezorService(version int32, calcArts types.ArticleCodeList,
 	service := ProcezorService{ version: types.GetVersionCode(version), calcArticles: calcArts,
 		resultsBuilder: registry.NewResultBuilder(),
 		contractBuilder: contractSpec, positionBuilder: positionSpec, factoryBuilder: serviceSpec }
-	service.BuildFactories()
+	if service.BuildFactories() == false {
+		println(fmt.Sprintf("Version: %d, build factories failed", version))
+	}
 	return &service
 }
 

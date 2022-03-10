@@ -1,6 +1,7 @@
 package example
 
 import (
+	"fmt"
 	legalios "github.com/mzdyhrave/legaliosgo"
 	procezor "github.com/mzdyhrave/procezorgo"
 	"github.com/mzdyhrave/procezorgo/internal/types"
@@ -143,10 +144,15 @@ func NewExampleService() procezor.IProcezorService{
 		TestCalcsArticle = []procezor.ArticleCode{procezor.GetArticleCode(TestFinalArticle.Id())}
 	)
 
-	return &ExampleService{
+	service := ExampleService{
 		procezor.NewProcezorService(TestVersion, TestCalcsArticle,
 			NewExampleContractBuilder(), NewExamplePositionBuilder(), NewExampleServiceBuilder()),
 	}
+	buildSuccess := service.BuildFactories()
+	if buildSuccess == false {
+		println(fmt.Sprintf("Version: %d, build factories failed", service.Version().Value()))
+	}
+	return &service
 }
 
 func GetTargetsWithSalaryHomeOffice(period legalios.IPeriod) types.ITermTargetList {

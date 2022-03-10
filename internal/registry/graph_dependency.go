@@ -1,6 +1,7 @@
 package registry
 
 import (
+	"fmt"
 	providers "github.com/mzdyhrave/procezorgo/internal/registry_providers"
 	"github.com/mzdyhrave/procezorgo/internal/types"
 	"sort"
@@ -121,7 +122,9 @@ func createTopoModel(vertModel OrderCodeList, edgeModel []articleEdge) types.Art
 			}
 		}
 	}
-	if index != len(vertModel) {
+	modelLength := len(vertModel)
+	if index != modelLength {
+		println(fmt.Sprintf("CreateTopoModel, build graph failed: %d<>%d", index, modelLength))
 		return make([]types.ArticleTerm, 0)
 	}
 	return articlesOrder
