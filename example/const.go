@@ -30,12 +30,6 @@ const CONCEPT_TAXING_ADVPAYM = ExampleConceptConst(80011)
 const CONCEPT_INCOME_GROSS = ExampleConceptConst(80012)
 const CONCEPT_INCOME_NETTO = ExampleConceptConst(80013)
 
-const (
-	RESULT_VALUE_ZERO int32 = 0
-	RESULT_BASIS_ZERO int32 = 0
-	RESULT_DESCRIPTION_EMPTY string = ""
-)
-
 func (tac ExampleArticleConst) Id() int32 {
 	return int32(tac)
 }
